@@ -1,0 +1,28 @@
+
+#+title: Some title
+
+#+keyword: value
+
+#+drawers: mydrawer
+
+:mydrawer:
+text
+in
+drawer
+:end:
+
+
+* First heading
+
+** Second heading A
+
+** Second heading B
+
+
+* First heading
+
+** Second heading A
+
+** Second heading B
+
+
