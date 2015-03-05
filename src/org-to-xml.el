@@ -31,7 +31,7 @@ attributes."
       ;; TODO: this expression is repeated below
       (princ o (lambda (charcode)
                  (princ 
-                  (or (assq charcode xml-content-encode-map)
+                  (or (cdr (assoc charcode xml-content-encode-map))
                       (char-to-string charcode))
                   out)))
 
@@ -53,7 +53,7 @@ attributes."
                   (princ "=\"" out)
                   (princ value  (lambda (charcode)
                                   (princ 
-                                   (or (assq charcode xml-attribute-encode-map)
+                                   (or (cdr (assoc charcode xml-attribute-encode-map))
                                        (char-to-string charcode))
                                    out)))
                   (princ "\"" out))))
