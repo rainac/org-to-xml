@@ -2,10 +2,17 @@
 
 ORGTOXML_HOME=${ORGTOXML_HOME:-$PWD}
 
+TMP=${TMP:-/tmp}
+
 in=$1
 
-emacs --batch -l $ORGTOXML_HOME/org-to-xml.el --file $in -f org-to-xml 2> /dev/null
+tmpin=$TMP/org-to-xml-$$.org
 
-xml=$in.xml
+cat $in > $tmpin
+
+emacs --batch -l $ORGTOXML_HOME/org-to-xml.el --file $tmpin -f org-to-xml 2> /dev/null
+
+xml=$tmpin.xml
 cat $xml
-rm $xml
+
+rm $tmpin $xml
