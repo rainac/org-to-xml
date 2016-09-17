@@ -1,9 +1,9 @@
 
-#+title: Some title
+#+TITLE: Some title
 
-#+keyword: value
+#+KEYWORD: value
 
-#+drawers: mydrawer
+#+DRAWERS: mydrawer
 
 :mydrawer:
 text
