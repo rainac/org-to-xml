@@ -1,6 +1,7 @@
-#! /bin/sh
+#! /bin/bash
 
-ORGTOXML_HOME=${ORGTOXML_HOME:-$PWD}
+SRCDIR=$(dirname $BASH_SOURCE)
+ORGTOXML_HOME=${ORGTOXML_HOME:-$SRCDIR}
 
 in=$1
 
