@@ -9,6 +9,8 @@
 ;; assoc is obsolete, aget does not exist anymore
 ;; replaced aget -> assq
 
+;; no indentation, newlines printed, so that texts can be reproduced faithfully
+
 (require 'org-element)
 (require 'cl)
 ;; (require 'cl-lib)
@@ -21,6 +23,11 @@
 
 (defvar xml-attribute-encode-map
   (cons '(?\" . "&quot;") xml-content-encode-map))
+
+;; indentation disabled
+(defvar xml-indent "")
+;; newlines disabled
+(defvar xml-nl "")
 
 (defun write-xml (o out parents depth)
   "Writes O as XML to OUT, assuming that lists have a plist as
@@ -39,7 +46,7 @@ attributes."
       (let ((parents-and-self (cons o parents))
             (attributes (cadr o)))
 
-        (dotimes (x depth) (princ "\t" out))
+        (dotimes (x depth) (princ xml-indent out))
         (princ "<" out)
         (princ (car o) out)
 
@@ -58,15 +65,15 @@ attributes."
                                    out)))
                   (princ "\"" out))))
 
-        (princ ">\n" out)
+        (princ (concat ">" xml-nl) out)
 
         (loop for e in (cddr o)  do
               (write-xml e out parents-and-self (+ 1 depth)))
 
-        (dotimes (x depth) (princ "\t" out))
+        (dotimes (x depth) (princ xml-indent out))
         (princ "</" out)
         (princ (car o) out)
-        (princ ">\n" out)))))
+        (princ (concat ">" xml-nl) out)))))
 
 (defun org-file-to-xml (orgfile xmlfile)
   "Serialize ORGFILE file as XML to XMLFILE."
