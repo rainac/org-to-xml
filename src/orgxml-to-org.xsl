@@ -139,6 +139,28 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
 
+  <xsl:template match="table">
+    <xsl:apply-templates/>
+    <xsl:apply-templates select="." mode="post-blank"/>
+  </xsl:template>
+
+  <xsl:template match="table-row">
+    <xsl:text>|</xsl:text>
+    <xsl:apply-templates/>
+    <xsl:text>&#xa;</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="table-cell">
+    <xsl:call-template name="spaces">
+      <xsl:with-param name="num" select="@contents-begin - @begin"/>
+    </xsl:call-template>
+    <xsl:apply-templates mode="para"/>
+    <xsl:call-template name="spaces">
+      <xsl:with-param name="num" select="@end - @contents-end - 1"/>
+    </xsl:call-template>
+    <xsl:text>|</xsl:text>
+  </xsl:template>
+
   <xsl:template match="*" mode="pre-blank">
     <xsl:call-template name="blanks">
       <xsl:with-param name="num" select="@pre-blank"/>
