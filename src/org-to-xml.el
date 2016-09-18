@@ -84,15 +84,21 @@ attributes."
                   (princ "<" out)
                   (princ (substring (symbol-name key) 1) out)
                   (princ ">" out)
-                  (loop for i in value do
-                        (princ "<item>" out)
-                        (princ i (lambda (charcode)
-                                        (princ
-                                         (or (cdr (assoc charcode xml-attribute-encode-map))
-                                             (char-to-string charcode))
-                                         out)))
-                        (princ "</item>" out)
-                        )
+
+                  (if (or (equal (substring (symbol-name key) 1) "deadline"))
+
+                      (write-xml value out parents-and-self (+ 1 depth))
+
+                    (loop for i in value do
+                          (princ "<item>" out)
+                          (princ i (lambda (charcode)
+                                     (princ
+                                      (or (cdr (assoc charcode xml-attribute-encode-map))
+                                          (char-to-string charcode))
+                                      out)))
+                          (princ "</item>" out)
+                          ))
+
                   (princ "</" out)
                   (princ (substring (symbol-name key) 1) out)
                   (princ ">" out))

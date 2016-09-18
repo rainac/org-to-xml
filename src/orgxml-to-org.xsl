@@ -217,6 +217,11 @@ Copyright © 2016 Johannes Willkomm
     <xsl:text>&#xa;</xsl:text>
   </xsl:template>
 
+  <xsl:template match="timestamp" mode="para">
+    <xsl:value-of select="@raw-value"/>
+    <xsl:apply-templates select="." mode="post-spaces"/>
+  </xsl:template>
+
   <xsl:template match="*" mode="pre-blank">
     <xsl:call-template name="blanks">
       <xsl:with-param name="num" select="@pre-blank"/>
