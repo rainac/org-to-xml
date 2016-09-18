@@ -103,10 +103,40 @@ Copyright © 2016 Johannes Willkomm
 
   <xsl:template match="latex-environment">
     <xsl:value-of select="value"/>
+    <xsl:apply-templates select="." mode="post-blank"/>
+  </xsl:template>
+
+  <xsl:template match="@parameters|@language">
+    <xsl:text> </xsl:text>
+    <xsl:value-of select="."/>
+  </xsl:template>
+
+  <xsl:template match="src-block">
+    <xsl:text>#+BEGIN_SRC</xsl:text>
+    <xsl:apply-templates select="@language"/>
+    <xsl:apply-templates select="@parameters"/>
     <xsl:text>&#xa;</xsl:text>
-    <xsl:call-template name="blanks">
-      <xsl:with-param name="num" select="@post-blank -1"/>
-    </xsl:call-template>
+    <xsl:value-of select="value"/>
+    <xsl:text>#+END_SRC&#xa;</xsl:text>
+    <xsl:apply-templates select="." mode="post-blank"/>
+  </xsl:template>
+
+  <xsl:template match="example-block">
+    <xsl:text>#+BEGIN_EXAMPLE&#xa;</xsl:text>
+    <xsl:value-of select="value"/>
+    <xsl:text>#+END_EXAMPLE&#xa;</xsl:text>
+    <xsl:apply-templates select="." mode="post-blank"/>
+  </xsl:template>
+
+  <xsl:template match="special-block">
+    <xsl:text>#+BEGIN_</xsl:text>
+    <xsl:value-of select="@type"/>
+    <xsl:text>&#xa;</xsl:text>
+    <xsl:apply-templates/>
+    <xsl:text>#+END_</xsl:text>
+    <xsl:value-of select="@type"/>
+    <xsl:text>&#xa;</xsl:text>
+    <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
 
   <xsl:template match="*" mode="pre-blank">
