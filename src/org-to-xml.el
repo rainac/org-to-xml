@@ -54,7 +54,7 @@ attributes."
               (let ((key (first x))
                     (value (cadr x)))
 
-                (when (and value (not (listp value)))
+                (when (and value (not (listp value)) (not (equal (substring (symbol-name key) 1) "value")))
                   (princ " " out)
                   (princ (substring (symbol-name key) 1) out)
                   (princ "=\"" out)
@@ -66,6 +66,19 @@ attributes."
                   (princ "\"" out))))
 
         (princ (concat ">" xml-nl) out)
+
+        (loop for x on attributes by 'cddr do
+              (let ((key (first x))
+                    (value (cadr x)))
+
+                (when (equal (substring (symbol-name key) 1) "value")
+                  (princ "<value>" out)
+                  (princ value  (lambda (charcode)
+                                  (princ
+                                   (or (cdr (assoc charcode xml-attribute-encode-map))
+                                       (char-to-string charcode))
+                                   out)))
+                  (princ "</value>" out))))
 
         (loop for e in (cddr o)  do
               (write-xml e out parents-and-self (+ 1 depth)))

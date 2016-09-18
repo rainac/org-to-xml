@@ -32,7 +32,7 @@ Copyright © 2016 Johannes Willkomm
     <xsl:text>#+</xsl:text>
     <xsl:value-of select="@key"/>
     <xsl:text>: </xsl:text>
-    <xsl:value-of select="@value"/>
+    <xsl:value-of select="value"/>
     <xsl:text>&#xa;</xsl:text>
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
@@ -92,19 +92,21 @@ Copyright © 2016 Johannes Willkomm
 
   <xsl:template match="code" mode="para">
     <xsl:text>~</xsl:text>
-    <xsl:value-of select="@value"/>
+    <xsl:value-of select="value"/>
     <xsl:text>~</xsl:text>
   </xsl:template>
 
   <xsl:template match="latex-fragment" mode="para">
-    <xsl:value-of select="@value"/>
+    <xsl:value-of select="value"/>
     <xsl:apply-templates select="." mode="post-spaces"/>
   </xsl:template>
 
   <xsl:template match="latex-environment">
-    <xsl:value-of select="@value"/>
+    <xsl:value-of select="value"/>
     <xsl:text>&#xa;</xsl:text>
-    <xsl:apply-templates select="." mode="blanks"/>
+    <xsl:call-template name="blanks">
+      <xsl:with-param name="num" select="@post-blank -1"/>
+    </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="*" mode="pre-blank">
