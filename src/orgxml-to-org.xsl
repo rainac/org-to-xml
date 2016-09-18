@@ -53,6 +53,7 @@ Copyright © 2016 Johannes Willkomm
       <xsl:text>*</xsl:text>
     </xsl:for-each>
     <xsl:apply-templates select="@todo-keyword"/>
+    <xsl:apply-templates select="@priority"/>
     <xsl:apply-templates select="@raw-value"/>
     <xsl:apply-templates select="tags" mode="tags"/>
     <xsl:text>&#xa;</xsl:text>
@@ -71,6 +72,7 @@ Copyright © 2016 Johannes Willkomm
     <xsl:call-template name="spaces">
       <xsl:with-param name="num" select="76 - ../@level - string-length(../@raw-value)
                                          - string-length(../@todo-keyword) - boolean(../@todo-keyword)
+                                         - boolean(../@priority)*5
                                          - string-length(.) - count(item) - 1"/>
     </xsl:call-template>
     <xsl:text>:</xsl:text>
@@ -124,6 +126,16 @@ Copyright © 2016 Johannes Willkomm
   <xsl:template match="latex-environment">
     <xsl:value-of select="value"/>
     <xsl:apply-templates select="." mode="post-blank"/>
+  </xsl:template>
+
+  <xsl:template match="@priority[.='65']">
+    <xsl:text> [#A]</xsl:text>
+  </xsl:template>
+  <xsl:template match="@priority[.='66']">
+    <xsl:text> [#B]</xsl:text>
+  </xsl:template>
+  <xsl:template match="@priority[.='67']">
+    <xsl:text> [#C]</xsl:text>
   </xsl:template>
 
   <xsl:template match="@parameters|@language|@todo-keyword|@raw-value">
