@@ -52,8 +52,8 @@ Copyright © 2016 Johannes Willkomm
     <xsl:for-each select="ancestor-or-self::headline">
       <xsl:text>*</xsl:text>
     </xsl:for-each>
-    <xsl:text> </xsl:text>
-    <xsl:value-of select="@raw-value"/>
+    <xsl:apply-templates select="@todo-keyword"/>
+    <xsl:apply-templates select="@raw-value"/>
     <xsl:text>&#xa;</xsl:text>
     <xsl:apply-templates select="." mode="pre-blank"/>
     <xsl:apply-templates/>
@@ -106,7 +106,7 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
 
-  <xsl:template match="@parameters|@language">
+  <xsl:template match="@parameters|@language|@todo-keyword|@raw-value">
     <xsl:text> </xsl:text>
     <xsl:value-of select="."/>
   </xsl:template>
