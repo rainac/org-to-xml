@@ -150,6 +150,23 @@ Copyright © 2016 Johannes Willkomm
     <xsl:text>&#xa;</xsl:text>
   </xsl:template>
 
+  <xsl:template match="table-cell" mode="rule">
+    <xsl:call-template name="dashes"/>
+    <xsl:text>+</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="table-cell[last()]" mode="rule">
+    <xsl:call-template name="dashes"/>
+    <xsl:text>|</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="table-row[@type='rule']">
+    <xsl:text>|</xsl:text>
+    <xsl:apply-templates mode="rule"
+        select="(preceding-sibling::table-row[@type='standard']|following-sibling::table-row[@type='standard'])[1]"/>
+    <xsl:text>&#xa;</xsl:text>
+  </xsl:template>
+
   <xsl:template match="table-cell">
     <xsl:call-template name="spaces">
       <xsl:with-param name="num" select="@contents-begin - @begin"/>
@@ -182,6 +199,16 @@ Copyright © 2016 Johannes Willkomm
     <xsl:if test="$num > 0">
       <xsl:text> </xsl:text>
       <xsl:call-template name="spaces">
+        <xsl:with-param name="num" select="$num -1"/>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="*" name="dashes">
+    <xsl:param name="num" select="@end - @begin - 1"/>
+    <xsl:if test="$num > 0">
+      <xsl:text>-</xsl:text>
+      <xsl:call-template name="dashes">
         <xsl:with-param name="num" select="$num -1"/>
       </xsl:call-template>
     </xsl:if>
