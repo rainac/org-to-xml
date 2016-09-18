@@ -71,7 +71,7 @@ attributes."
               (let ((key (first x))
                     (value (cadr x)))
 
-                (when (equal (substring (symbol-name key) 1) "value")
+                (when (and value (equal (substring (symbol-name key) 1) "value"))
                   (princ "<value>" out)
                   (princ value  (lambda (charcode)
                                   (princ
