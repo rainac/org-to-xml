@@ -54,12 +54,32 @@ Copyright © 2016 Johannes Willkomm
     </xsl:for-each>
     <xsl:apply-templates select="@todo-keyword"/>
     <xsl:apply-templates select="@raw-value"/>
+    <xsl:apply-templates select="tags" mode="tags"/>
     <xsl:text>&#xa;</xsl:text>
     <xsl:apply-templates select="." mode="pre-blank"/>
     <xsl:apply-templates/>
     <xsl:if test="not(section)">
       <xsl:apply-templates select="." mode="post-blank"/>
     </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="tags"/>
+
+  <xsl:template match="text()" mode="tags"/>
+
+  <xsl:template match="tags" mode="tags">
+    <xsl:call-template name="spaces">
+      <xsl:with-param name="num" select="76 - ../@level - string-length(../@raw-value)
+                                         - string-length(../@todo-keyword) - boolean(../@todo-keyword)
+                                         - string-length(.) - count(item) - 1"/>
+    </xsl:call-template>
+    <xsl:text>:</xsl:text>
+    <xsl:apply-templates select="item" mode="tags"/>
+  </xsl:template>
+
+  <xsl:template match="item" mode="tags">
+    <xsl:value-of select="."/>
+    <xsl:text>:</xsl:text>
   </xsl:template>
 
   <xsl:template match="paragraph">
