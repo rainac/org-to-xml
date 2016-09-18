@@ -222,6 +222,29 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-spaces"/>
   </xsl:template>
 
+  <xsl:template match="planning">
+    <xsl:apply-templates mode="planning"/>
+    <xsl:apply-templates select="." mode="post-blank"/>
+  </xsl:template>
+
+  <xsl:template match="deadline"/>
+
+  <xsl:template match="deadline" mode="planning">
+    <xsl:text>  DEADLINE: </xsl:text>
+    <xsl:apply-templates mode="para"/>
+    <xsl:text>&#xa;</xsl:text>
+    <xsl:apply-templates select="." mode="post-blank"/>
+  </xsl:template>
+
+  <xsl:template match="clock">
+    <xsl:text>  CLOCK: </xsl:text>
+    <xsl:apply-templates select="value/*" mode="para"/>
+    <xsl:text>&#xa;</xsl:text>
+    <xsl:apply-templates select="." mode="post-blank"/>
+  </xsl:template>
+
+  <xsl:template match="title"/>
+
   <xsl:template match="*" mode="pre-blank">
     <xsl:call-template name="blanks">
       <xsl:with-param name="num" select="@pre-blank"/>
@@ -248,7 +271,7 @@ Copyright © 2016 Johannes Willkomm
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="*" name="dashes">
+  <xsl:template match="*" name="dashes" mode="dashes">
     <xsl:param name="num" select="@end - @begin - 1"/>
     <xsl:if test="$num > 0">
       <xsl:text>-</xsl:text>

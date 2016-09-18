@@ -71,7 +71,7 @@ attributes."
               (let ((key (first x))
                     (value (cadr x)))
 
-                (when (and value (equal (substring (symbol-name key) 1) "value"))
+                (when (and value (not (listp value)) (equal (substring (symbol-name key) 1) "value"))
                   (princ "<value>" out)
                   (princ value  (lambda (charcode)
                                   (princ
@@ -85,7 +85,9 @@ attributes."
                   (princ (substring (symbol-name key) 1) out)
                   (princ ">" out)
 
-                  (if (or (equal (substring (symbol-name key) 1) "deadline"))
+                  (if (or (equal (substring (symbol-name key) 1) "deadline")
+                          (equal (substring (symbol-name key) 1) "value")
+                          (equal (substring (symbol-name key) 1) "clock"))
 
                       (write-xml value out parents-and-self (+ 1 depth))
 
