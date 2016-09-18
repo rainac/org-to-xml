@@ -1,0 +1,13 @@
+
+* Test
+
+No formulas:
+| A |  B |   C | A + B |
+| 1 | 22 | 333 |    23 |
+
+With formulas:
+| A |  B |   C | A + B |      |
+| 1 | 22 | 333 |    23 | 7327 |
+#+TBLFM: $4=$1+$2::$5=$1+$2*$3
+
+End

@@ -140,7 +140,8 @@ Copyright © 2016 Johannes Willkomm
   </xsl:template>
 
   <xsl:template match="table">
-    <xsl:apply-templates/>
+    <xsl:apply-templates select="table-row"/>
+    <xsl:apply-templates select="tblfm"/>
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
 
@@ -176,6 +177,12 @@ Copyright © 2016 Johannes Willkomm
       <xsl:with-param name="num" select="@end - @contents-end - 1"/>
     </xsl:call-template>
     <xsl:text>|</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="tblfm">
+    <xsl:text>#+TBLFM: </xsl:text>
+    <xsl:value-of select="item"/>
+    <xsl:text>&#xa;</xsl:text>
   </xsl:template>
 
   <xsl:template match="*" mode="pre-blank">

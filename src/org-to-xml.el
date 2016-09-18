@@ -78,7 +78,25 @@ attributes."
                                    (or (cdr (assoc charcode xml-attribute-encode-map))
                                        (char-to-string charcode))
                                    out)))
-                  (princ "</value>" out))))
+                  (princ "</value>" out))
+
+                (when (and (listp value) (> (length value) 0) (not (equal (substring (symbol-name key) 1) "parent")))
+                  (princ "<" out)
+                  (princ (substring (symbol-name key) 1) out)
+                  (princ ">" out)
+                  (loop for i in value do
+                        (princ "<item>" out)
+                        (princ i (lambda (charcode)
+                                        (princ
+                                         (or (cdr (assoc charcode xml-attribute-encode-map))
+                                             (char-to-string charcode))
+                                         out)))
+                        (princ "</item>" out)
+                        )
+                  (princ "</" out)
+                  (princ (substring (symbol-name key) 1) out)
+                  (princ ">" out))
+                ))
 
         (loop for e in (cddr o)  do
               (write-xml e out parents-and-self (+ 1 depth)))
