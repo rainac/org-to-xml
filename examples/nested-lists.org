@@ -1,0 +1,26 @@
+* Section
+
+Test
+
+  - item1
+    - nitem1.1
+    - nitem1.2
+  - item2
+    + nitem2.1
+    + nitem2.2
+
+Text
+
+  + l2 item1
+    * l2 nitem1.1
+      1. l2 nitem1.1.1
+      2. l2 nitem1.1.2
+    * l2 nitem1.1
+      1. l2 nitem1.1.1
+      2. l2 nitem1.1.2
+  + l2 item2
+
+
+
+
+ABC

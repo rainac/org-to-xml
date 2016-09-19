@@ -1,0 +1,21 @@
+* Section
+
+Test
+
+  - item1
+  - item2
+
+Text
+
+  + l2 item1
+  + l2 item2
+
+Text
+
+  1. l3 item1
+  2. l3 item2
+
+Text
+
+  1) l3 item1
+  2) l3 item2

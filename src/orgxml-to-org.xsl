@@ -217,6 +217,27 @@ Copyright © 2016 Johannes Willkomm
     <xsl:text>&#xa;</xsl:text>
   </xsl:template>
 
+  <xsl:template match="plain-list">
+    <xsl:apply-templates select="item"/>
+    <xsl:apply-templates select="." mode="post-blank"/>
+  </xsl:template>
+
+  <xsl:template match="item">
+    <xsl:for-each select="ancestor::plain-list">
+      <xsl:text>  </xsl:text>
+    </xsl:for-each>
+    <xsl:value-of select="@bullet"/>
+    <xsl:apply-templates/>
+    <xsl:apply-templates select="." mode="post-blank"/>
+  </xsl:template>
+
+  <xsl:template match="tag">
+    <xsl:value-of select="item"/>
+    <xsl:text> :: </xsl:text>
+  </xsl:template>
+
+  <xsl:template match="structure"/>
+
   <xsl:template match="timestamp" mode="para">
     <xsl:value-of select="@raw-value"/>
     <xsl:apply-templates select="." mode="post-spaces"/>
