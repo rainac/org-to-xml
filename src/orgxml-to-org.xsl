@@ -60,8 +60,11 @@ Copyright © 2016 Johannes Willkomm
     <xsl:text>&#xa;</xsl:text>
     <xsl:apply-templates select="." mode="pre-blank"/>
     <xsl:apply-templates/>
-    <xsl:if test="not(section|headline)">
+    <xsl:if test="not(headline|section|paragraph)">
       <xsl:apply-templates select="." mode="post-blank"/>
+      <xsl:if test="not(following-sibling::headline)">
+        <xsl:apply-templates select=".." mode="post-blank"/>
+      </xsl:if>
     </xsl:if>
   </xsl:template>
 
