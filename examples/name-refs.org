@@ -1,0 +1,13 @@
+* Test
+
+Some text, look at Figure [[i:img]] and the values in Table [[t:table]].
+
+#+name: i:img
+#+caption: The image
+#+IMAGE: img.png
+
+#+name: t:table
+#+caption: The table
+| A | B | C |
+|---+---+---|
+| 1 | 2 | 3 |
