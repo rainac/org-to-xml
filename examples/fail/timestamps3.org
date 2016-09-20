@@ -1,0 +1,22 @@
+* TODO ToDo-List
+  DEADLINE: <2016-09-18 So>
+  CLOCK: [2016-09-18 So 23:06]
+
+List of ToDos
+
+** TODO Task 1
+   DEADLINE: <2016-09-22 Do>
+   CLOCK: [2016-09-18 So 23:06]--[2016-09-18 So 23:06] =>  0:00
+
+This involves...
+
+** DONE Task 2
+   CLOSED: [2016-09-18 So 21:38]
+This requires...
+
+** WAITING Task 3                                                   :WAITING:
+   - State "WAITING"    from "DONE"       [2016-09-18 So 21:38] \\
+     waiting for another task
+
+This involves...
+

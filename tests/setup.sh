@@ -8,9 +8,15 @@ EXAMPLES=$ORGTOXML_HOME/../examples
 
 do_parse_unparse() {
     inorg=$1
+    fail=$2
     org-to-xml.sh $inorg > res.xml
     orgxml-to-org.sh res.xml > res.org
     diff $inorg res.org
-    assertEquals "The org output should be identical to the input" "0" "$?"
+    res=$?
+    if [[ -z "$fail" ]]; then
+        assertEquals "The org output should be identical to the input" "0" "$res"
+    else
+        assertEquals "This test fails" "1" "$res"
+    fi
 }
 

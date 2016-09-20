@@ -32,6 +32,19 @@ EOF
     k=$(( $k + 1 ))
     done
 
+    # failing tests
+    k=1
+    for torg in $EXAMPLES/fail/*.org; do
+    cat >> $TESTDIR/test_parse_unparse_all.sh <<EOF
+
+test_file_fail_$k() {
+    echo testing input file: $(basename $torg)
+    do_parse_unparse \$EXAMPLES/fail/$(basename $torg) fail
+}
+EOF
+    k=$(( $k + 1 ))
+    done
+
     # footer
     cat >> $TESTDIR/test_parse_unparse_all.sh <<EOF
 
