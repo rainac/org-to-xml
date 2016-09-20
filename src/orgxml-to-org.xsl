@@ -287,6 +287,12 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-spaces"/>
   </xsl:template>
 
+  <xsl:template match="target" mode="para">
+    <xsl:text>&lt;&lt;</xsl:text>
+    <xsl:value-of select="value"/>
+    <xsl:text>&gt;&gt;</xsl:text>
+  </xsl:template>
+
   <xsl:template match="timestamp" mode="para">
     <xsl:value-of select="@raw-value"/>
     <xsl:apply-templates select="." mode="post-spaces"/>
