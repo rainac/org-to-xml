@@ -238,6 +238,38 @@ Copyright © 2016 Johannes Willkomm
 
   <xsl:template match="structure"/>
 
+  <xsl:template match="@type" mode="link">
+    <xsl:value-of select="."/>
+    <xsl:text>:</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="@type[. = 'fuzzy']" mode="link"/>
+
+  <xsl:template match="@search-option" mode="link">
+    <xsl:text>::</xsl:text>
+    <xsl:value-of select="."/>
+  </xsl:template>
+
+  <xsl:template match="link[. = '']" mode="para">
+    <xsl:text>[[</xsl:text>
+    <xsl:apply-templates select="@type" mode="link"/>
+    <xsl:value-of select="@path"/>
+    <xsl:apply-templates select="@search-option" mode="link"/>
+    <xsl:text>]]</xsl:text>
+    <xsl:apply-templates select="." mode="post-spaces"/>
+  </xsl:template>
+
+  <xsl:template match="link" mode="para">
+    <xsl:text>[[</xsl:text>
+    <xsl:apply-templates select="@type" mode="link"/>
+    <xsl:value-of select="@path"/>
+    <xsl:apply-templates select="@search-option" mode="link"/>
+    <xsl:text>][</xsl:text>
+    <xsl:value-of select="."/>
+    <xsl:text>]]</xsl:text>
+    <xsl:apply-templates select="." mode="post-spaces"/>
+  </xsl:template>
+
   <xsl:template match="timestamp" mode="para">
     <xsl:value-of select="@raw-value"/>
     <xsl:apply-templates select="." mode="post-spaces"/>

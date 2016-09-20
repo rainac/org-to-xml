@@ -1,0 +1,7 @@
+* First heading
+** Second heading A
+See [[file:headline-refs.org::*Second%20heading%20A][also]] here.
+** Second heading B
+
+As reported [[http://heise.de][here]].
+
