@@ -22,7 +22,6 @@ Copyright © 2016 Johannes Willkomm
   </xsl:template>
 
   <xsl:template match="section">
-    <xsl:apply-templates select="." mode="pre-blank"/>
     <xsl:apply-templates/>
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
@@ -59,7 +58,7 @@ Copyright © 2016 Johannes Willkomm
     <xsl:text>&#xa;</xsl:text>
     <xsl:apply-templates select="." mode="pre-blank"/>
     <xsl:apply-templates/>
-    <xsl:if test="not(section)">
+    <xsl:if test="not(section|headline)">
       <xsl:apply-templates select="." mode="post-blank"/>
     </xsl:if>
   </xsl:template>
@@ -85,7 +84,6 @@ Copyright © 2016 Johannes Willkomm
   </xsl:template>
 
   <xsl:template match="paragraph">
-    <xsl:apply-templates select="." mode="pre-blank"/>
     <xsl:apply-templates mode="para"/>
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
