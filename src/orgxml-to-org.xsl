@@ -28,6 +28,8 @@ Copyright © 2016 Johannes Willkomm
 
   <xsl:template match="keyword">
     <xsl:apply-templates select="." mode="pre-blank"/>
+    <xsl:apply-templates select="@name"/>
+    <xsl:apply-templates select="caption"/>
     <xsl:text>#+</xsl:text>
     <xsl:value-of select="@key"/>
     <xsl:text>: </xsl:text>
@@ -169,7 +171,21 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
 
+  <xsl:template match="@name">
+    <xsl:text>#+name: </xsl:text>
+    <xsl:value-of select="."/>
+    <xsl:text>&#xa;</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="caption">
+    <xsl:text>#+caption: </xsl:text>
+    <xsl:value-of select="substring(., 3, string-length(.)-4)"/>
+    <xsl:text>&#xa;</xsl:text>
+  </xsl:template>
+
   <xsl:template match="table">
+    <xsl:apply-templates select="@name"/>
+    <xsl:apply-templates select="caption"/>
     <xsl:apply-templates select="table-row"/>
     <xsl:apply-templates select="tblfm"/>
     <xsl:apply-templates select="." mode="post-blank"/>
