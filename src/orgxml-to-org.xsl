@@ -38,6 +38,13 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
 
+  <xsl:template match="comment">
+    <xsl:text># </xsl:text>
+    <xsl:value-of select="value"/>
+    <xsl:text>&#xa;</xsl:text>
+    <xsl:apply-templates select="." mode="post-blank"/>
+  </xsl:template>
+
   <xsl:template match="drawer">
     <xsl:apply-templates select="." mode="pre-blank"/>
     <xsl:text>:</xsl:text>
