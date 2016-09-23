@@ -26,6 +26,7 @@ res=$?
 if [[ "$res" != "0" ]]; then
     echo "XML export failed:" >&2
     cat $tempdir/err >&2
+    cat $emout >&2
 fi
 
 if [[ -z "$out" ]]; then
@@ -33,3 +34,5 @@ if [[ -z "$out" ]]; then
 fi
 
 rm -rf $tempdir
+
+exit $res
