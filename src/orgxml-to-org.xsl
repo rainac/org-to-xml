@@ -160,6 +160,15 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-spaces"/>
   </xsl:template>
 
+  <xsl:template match="line-break" mode="para">
+    <xsl:text>\\</xsl:text>
+    <xsl:apply-templates mode="para"/>
+    <xsl:apply-templates select="." mode="post-spaces">
+      <xsl:with-param name="num" select="@end - @begin - 3"/>
+    </xsl:apply-templates>
+    <xsl:text>&#xa;</xsl:text>
+  </xsl:template>
+
   <xsl:template match="@priority[.='65']">
     <xsl:text> [#A]</xsl:text>
   </xsl:template>
