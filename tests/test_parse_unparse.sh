@@ -21,7 +21,7 @@ EOF
 
     # tests
     k=1
-    for torg in $EXAMPLES/*.org; do
+    for torg in $EXAMPLES/*.org $EXAMPLES/private/*.org; do
     cat >> $TESTDIR/test_parse_unparse_all.sh <<EOF
 
 test_file_$k() {
