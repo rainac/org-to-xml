@@ -147,6 +147,11 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-spaces"/>
   </xsl:template>
 
+  <xsl:template match="entity[@latex-math-p = 't']" mode="para">
+    <xsl:value-of select="@latex"/>
+    <xsl:apply-templates select="." mode="post-spaces"/>
+  </xsl:template>
+
   <xsl:template match="@priority[.='65']">
     <xsl:text> [#A]</xsl:text>
   </xsl:template>
