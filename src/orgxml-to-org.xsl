@@ -203,7 +203,7 @@ Copyright © 2016 Johannes Willkomm
 
   <xsl:template match="caption">
     <xsl:text>#+caption: </xsl:text>
-    <xsl:value-of select="substring(., 3, string-length(.)-4)"/>
+    <xsl:value-of select="."/>
     <xsl:text>&#xa;</xsl:text>
   </xsl:template>
 

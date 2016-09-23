@@ -1,0 +1,8 @@
+* Test
+
+A
+
+** Case \alpha
+** Case \gamma
+
+B

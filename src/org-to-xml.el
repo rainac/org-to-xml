@@ -94,15 +94,7 @@ attributes."
 
                       (write-xml value out parents-and-self (+ 1 depth))
 
-                    (loop for i in value do
-                          (princ "<item>" out)
-                          (princ i (lambda (charcode)
-                                     (princ
-                                      (or (cdr (assoc charcode xml-attribute-encode-map))
-                                          (char-to-string charcode))
-                                      out)))
-                          (princ "</item>" out)
-                          ))
+                    (write-list value out parents-and-self (+ 1 depth)))
 
                   (princ "</" out)
                   (princ (substring (symbol-name key) 1) out)
@@ -116,6 +108,26 @@ attributes."
         (princ "</" out)
         (princ (car o) out)
         (princ (concat ">" xml-nl) out)))))
+
+(defun plistp (value)
+  (when (and (listp value) (equal (substring (symbol-name (car value)) 0 1) ":"))
+    't))
+
+(defun write-list (value out parents depth)
+  (loop for i in value do
+        (princ "<item>" out)
+        (if (listp i)
+            (let ((attributes (cadr i)))
+              (if (plistp attributes)
+                  (write-xml i out parents depth)
+
+                (write-list i out parents depth)))
+          (princ i (lambda (charcode)
+                     (princ
+                      (or (cdr (assoc charcode xml-attribute-encode-map))
+                          (char-to-string charcode))
+                      out))))
+        (princ "</item>" out)))
 
 (defun org-file-to-xml (orgfile xmlfile)
   "Serialize ORGFILE file as XML to XMLFILE."
