@@ -136,3 +136,11 @@ Does nothing if the current buffer is not in org-mode."
     (org-file-to-xml
      (buffer-file-name)
      (concat (buffer-file-name) ".xml"))))
+
+(defun org-to-xml-file (xmlfile)
+  "Export the current org file to XML and open in new buffer.
+Does nothing if the current buffer is not in org-mode."
+  (interactive)
+  (when (eq major-mode 'org-mode)
+    (org-file-to-xml
+     buffer-file-name xmlfile)))
