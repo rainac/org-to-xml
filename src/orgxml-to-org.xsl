@@ -203,9 +203,12 @@ Copyright © 2016 Johannes Willkomm
   </xsl:template>
 
   <xsl:template match="caption">
-    <xsl:text>#+caption: </xsl:text>
-    <xsl:value-of select="."/>
-    <xsl:text>&#xa;</xsl:text>
+    <xsl:for-each select="item">
+      <xsl:sort select="position()" order="descending" data-type="number"/>
+      <xsl:text>#+caption: </xsl:text>
+      <xsl:value-of select="."/>
+      <xsl:text>&#xa;</xsl:text>
+    </xsl:for-each>
   </xsl:template>
 
   <xsl:template match="table">

@@ -94,7 +94,7 @@ attributes."
         (princ (concat ">" xml-nl) out)))))
 
 (defun plistp (value)
-  (when (and (listp value) (equal (substring (symbol-name (car value)) 0 1) ":"))
+  (when (and (listp value) (symbolp (car value)) (equal (substring (symbol-name (car value)) 0 1) ":"))
     't))
 
 (defun org-item-p (value)
