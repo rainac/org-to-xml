@@ -302,7 +302,7 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-spaces"/>
   </xsl:template>
 
-  <xsl:template match="link" mode="para">
+  <xsl:template match="link[@contents-begin and @contents-end]" mode="para">
     <xsl:text>[[</xsl:text>
     <xsl:apply-templates select="@type" mode="link"/>
     <xsl:value-of select="@path"/>
@@ -310,6 +310,13 @@ Copyright © 2016 Johannes Willkomm
     <xsl:text>][</xsl:text>
     <xsl:value-of select="."/>
     <xsl:text>]]</xsl:text>
+    <xsl:apply-templates select="." mode="post-spaces"/>
+  </xsl:template>
+
+  <!-- this is a special case of [. = ''], so it must come last -->
+  <xsl:template match="link[@end - @begin - @post-blank - string-length(@raw-link) = 0]" mode="para">
+    <xsl:apply-templates select="@type" mode="link"/>
+    <xsl:value-of select="@path"/>
     <xsl:apply-templates select="." mode="post-spaces"/>
   </xsl:template>
 

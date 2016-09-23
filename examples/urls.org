@@ -5,3 +5,6 @@ See [[file:headline-refs.org::*Second%20heading%20A][also]] here.
 
 As reported [[http://heise.de][here]].
 
+A bracketed URL link [[http://www.heise.de]]   to there
+
+A plain URL link http://heise.de  to there
