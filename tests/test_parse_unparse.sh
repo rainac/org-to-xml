@@ -21,7 +21,11 @@ EOF
 
     # tests
     k=1
-    for torg in $EXAMPLES/*.org $EXAMPLES/private/*.org; do
+    exlist="$EXAMPLES/*.org"
+    if ls $EXAMPLES/private/*.org > /dev/null; then
+        exlist="$EXAMPLES/private/*.org $exlist"
+    fi
+    for torg in $exlist; do
         relname=${torg##$EXAMPLES/}
 
     cat >> $TESTDIR/test_parse_unparse_all.sh <<EOF
