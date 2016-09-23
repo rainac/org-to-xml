@@ -58,6 +58,7 @@ EOF
 
 test_run_all() {
     $TESTDIR/test_parse_unparse_all.sh
+    assertEquals "The sub test suite should pass OK" "0" "$?"
 }
 
 . shunit2
