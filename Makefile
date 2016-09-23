@@ -1,5 +1,6 @@
 
 check:
+	./tests/test_parse.sh
 	./tests/test_parse_unparse.sh
 
 clean:

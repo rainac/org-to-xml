@@ -20,3 +20,8 @@ do_parse_unparse() {
     fi
 }
 
+check_well_formed() {
+    inxml=$1
+    xsltproc $ORGTOXML_HOME/orgxml-to-org.xsl $inxml > /dev/null
+    assertEquals "The file $inxml should be well-formed XML" "0" "$?"
+}
