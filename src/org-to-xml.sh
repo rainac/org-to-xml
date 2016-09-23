@@ -3,17 +3,33 @@
 SRCDIR=$(dirname $BASH_SOURCE)
 ORGTOXML_HOME=${ORGTOXML_HOME:-$SRCDIR}
 
-in=$1
+if [[ "$ORGTOXML_DEBUG" = "1" ]]; then
+    set -x
+fi
 
-emacs --batch -l $ORGTOXML_HOME/org-to-xml.el --file $in -f org-to-xml 2> err
+TMP=${TMP:-/tmp}
+tempdir=${TMP}/org-to-xml-$$
+mkdir $tempdir
+
+in=$1
+out=$2
+
+if [[ -z "$out" ]]; then
+    emout=$tempdir/out.xml
+else
+    emout=$out
+fi
+
+emacs --batch -l $ORGTOXML_HOME/org-to-xml.el --file $in --eval "(org-to-xml-file \"$emout\")" 2> $tempdir/err
 res=$?
 
 if [[ "$res" != "0" ]]; then
-    echo "XML export failed"
-    cat err
+    echo "XML export failed:" >&2
+    cat $tempdir/err >&2
 fi
 
-xml=$in.xml
-cat $xml
-rm $xml
-rm err
+if [[ -z "$out" ]]; then
+    cat $emout
+fi
+
+rm -rf $tempdir
