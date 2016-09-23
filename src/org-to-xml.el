@@ -75,7 +75,7 @@ attributes."
                   (princ "<value>" out)
                   (princ value  (lambda (charcode)
                                   (princ
-                                   (or (cdr (assoc charcode xml-attribute-encode-map))
+                                   (or (cdr (assoc charcode xml-content-encode-map))
                                        (char-to-string charcode))
                                    out)))
                   (princ "</value>" out))
@@ -120,7 +120,7 @@ attributes."
               )
           (princ i (lambda (charcode)
                      (princ
-                      (or (cdr (assoc charcode xml-attribute-encode-map))
+                      (or (cdr (assoc charcode xml-content-encode-map))
                           (char-to-string charcode))
                       out))))
         (princ "</item>" out)))
