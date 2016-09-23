@@ -22,11 +22,13 @@ EOF
     # tests
     k=1
     for torg in $EXAMPLES/*.org $EXAMPLES/private/*.org; do
+        relname=${torg##$EXAMPLES/}
+
     cat >> $TESTDIR/test_parse_unparse_all.sh <<EOF
 
 test_file_$k() {
-    echo testing input file: $(basename $torg)
-    do_parse_unparse \$EXAMPLES/$(basename $torg)
+    echo testing input file: $relname
+    do_parse_unparse \$EXAMPLES/$relname
 }
 EOF
     k=$(( $k + 1 ))
