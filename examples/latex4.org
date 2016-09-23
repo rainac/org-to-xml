@@ -1,0 +1,10 @@
+
+* Test1
+
+Some latex sub_scripts
+
+Some latex formulas with errors
+
+test $m_{1,:} = n_{:,1} test test
+
+test $f(m_{1,:}) = f(n_{:,1}) test test

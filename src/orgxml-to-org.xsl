@@ -135,6 +135,18 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
 
+  <xsl:template match="subscript" mode="para">
+    <xsl:text>_</xsl:text>
+    <xsl:apply-templates mode="para"/>
+  </xsl:template>
+
+  <xsl:template match="subscript[@use-brackets-p = 't']" mode="para">
+    <xsl:text>_{</xsl:text>
+    <xsl:apply-templates mode="para"/>
+    <xsl:text>}</xsl:text>
+    <xsl:apply-templates select="." mode="post-spaces"/>
+  </xsl:template>
+
   <xsl:template match="@priority[.='65']">
     <xsl:text> [#A]</xsl:text>
   </xsl:template>
