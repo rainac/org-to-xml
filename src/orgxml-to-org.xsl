@@ -244,9 +244,10 @@ Copyright © 2016 Johannes Willkomm
   </xsl:template>
 
   <xsl:template match="item">
-    <xsl:for-each select="ancestor::plain-list">
-      <xsl:text>  </xsl:text>
-    </xsl:for-each>
+    <xsl:call-template name="spaces">
+      <xsl:with-param name="num" select="@contents-begin - @begin - string-length(@bullet)
+                                         - string-length(tag/item) - boolean(tag/item)*4"/>
+    </xsl:call-template>
     <xsl:value-of select="@bullet"/>
     <xsl:apply-templates/>
     <xsl:apply-templates select="." mode="post-blank"/>
