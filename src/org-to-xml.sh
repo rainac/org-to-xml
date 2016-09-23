@@ -17,7 +17,7 @@ out=$2
 if [[ -z "$out" ]]; then
     emout=$tempdir/out.xml
 else
-    emout=$out
+    emout=$(readlink -f $out)
 fi
 
 emacs --batch -l $ORGTOXML_HOME/org-to-xml.el --file $in --eval "(org-to-xml-file \"$emout\")" 2> $tempdir/err
