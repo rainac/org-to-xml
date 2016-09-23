@@ -10,7 +10,9 @@ do_parse_unparse() {
     inorg=$1
     fail=$2
     org-to-xml.sh $inorg > res.xml
+    assertEquals "The script should exit successfully" "0" "$?"
     orgxml-to-org.sh res.xml > res.org
+    assertEquals "The script should exit successfully" "0" "$?"
     diff $inorg res.org
     res=$?
     if [[ -z "$fail" ]]; then
