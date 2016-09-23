@@ -6,13 +6,19 @@ TESTDIR=$(dirname $BASH_SOURCE)
 # test single org doc individually
 
 test_plain() {
-    rm res.xml
+    rm -f res.xml
     org-to-xml.sh $EXAMPLES/test.org > res.xml
     check_well_formed res.xml
 }
 
+test_outfile() {
+    rm -f res.xml
+    org-to-xml.sh $EXAMPLES/test.org res.xml
+    check_well_formed res.xml
+}
+
 test_linked() {
-    rm res.xml
+    rm -f res.xml
     mkdir subdir
     ffn=$(readlink -f $EXAMPLES/test.org)
     ln -s $ffn subdir
