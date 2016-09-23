@@ -1,0 +1,9 @@
+* Test
+
+An XML code listing:
+
+#+BEGIN_SRC xml
+<test>
+Plain text with entities: &lt; &gt; &amp; &amp;amp;
+</test>
+#+END_SRC
