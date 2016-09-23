@@ -84,21 +84,11 @@ attributes."
                            (> (length value) 0)
                            (not (equal (substring (symbol-name key) 1) "parent"))
                            (not (equal (substring (symbol-name key) 1) "structure")))
-                  (princ "<" out)
-                  (princ (substring (symbol-name key) 1) out)
-                  (princ ">" out)
-
-                  (if (or (equal (substring (symbol-name key) 1) "deadline")
-                          (equal (substring (symbol-name key) 1) "value")
-                          (equal (substring (symbol-name key) 1) "clock"))
-
+                  (princ (concat "<" (substring (symbol-name key) 1) ">") out)
+                  (if (org-item-p value)
                       (write-xml value out parents-and-self (+ 1 depth))
-
-                    (write-list value out parents-and-self (+ 1 depth)))
-
-                  (princ "</" out)
-                  (princ (substring (symbol-name key) 1) out)
-                  (princ ">" out))
+                    (write-list value out parents-and-self depth))
+                  (princ (concat "</" (substring (symbol-name key) 1) ">") out))
                 ))
 
         (loop for e in (cddr o)  do
@@ -113,15 +103,21 @@ attributes."
   (when (and (listp value) (equal (substring (symbol-name (car value)) 0 1) ":"))
     't))
 
+(defun org-item-p (value)
+  (when (and (listp value) (plistp (cadr value)))
+    't))
+
 (defun write-list (value out parents depth)
   (loop for i in value do
         (princ "<item>" out)
         (if (listp i)
-            (let ((attributes (cadr i)))
-              (if (plistp attributes)
-                  (write-xml i out parents depth)
-
-                (write-list i out parents depth)))
+            (if (org-item-p i)
+                (write-xml i out parents depth)
+              (let ()
+                (princ "<list>" out)
+                (write-list i out parents depth)
+                (princ "</list>" out))
+              )
           (princ i (lambda (charcode)
                      (princ
                       (or (cdr (assoc charcode xml-attribute-encode-map))

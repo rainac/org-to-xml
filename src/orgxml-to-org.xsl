@@ -336,7 +336,7 @@ Copyright © 2016 Johannes Willkomm
 
   <xsl:template match="clock">
     <xsl:text>  CLOCK: </xsl:text>
-    <xsl:apply-templates select="value/*" mode="para"/>
+    <xsl:apply-templates mode="para"/>
     <xsl:text>&#xa;</xsl:text>
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
