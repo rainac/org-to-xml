@@ -138,6 +138,7 @@ Copyright © 2016 Johannes Willkomm
   <xsl:template match="subscript" mode="para">
     <xsl:text>_</xsl:text>
     <xsl:apply-templates mode="para"/>
+    <xsl:apply-templates select="." mode="post-spaces"/>
   </xsl:template>
 
   <xsl:template match="subscript[@use-brackets-p = 't']" mode="para">

@@ -1,7 +1,7 @@
 
 * Test1
 
-Some latex sub_scripts
+Some latex sub_scripts in text
 
 Some latex formulas with errors
 
