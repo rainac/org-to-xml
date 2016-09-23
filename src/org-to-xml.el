@@ -80,7 +80,10 @@ attributes."
                                    out)))
                   (princ "</value>" out))
 
-                (when (and (listp value) (> (length value) 0) (not (equal (substring (symbol-name key) 1) "parent")))
+                (when (and (listp value)
+                           (> (length value) 0)
+                           (not (equal (substring (symbol-name key) 1) "parent"))
+                           (not (equal (substring (symbol-name key) 1) "structure")))
                   (princ "<" out)
                   (princ (substring (symbol-name key) 1) out)
                   (princ ">" out)
