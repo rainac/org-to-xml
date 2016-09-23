@@ -22,7 +22,7 @@ EOF
     # tests
     k=1
     exlist="$EXAMPLES/*.org"
-    if ls $EXAMPLES/private/*.org > /dev/null; then
+    if ls $EXAMPLES/private/*.org &> /dev/null; then
         exlist="$EXAMPLES/private/*.org $exlist"
     fi
     for torg in $exlist; do
