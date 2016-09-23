@@ -101,24 +101,28 @@ Copyright © 2016 Johannes Willkomm
     <xsl:text>*</xsl:text>
     <xsl:apply-templates mode="para"/>
     <xsl:text>*</xsl:text>
+    <xsl:apply-templates select="." mode="post-spaces"/>
   </xsl:template>
 
   <xsl:template match="italic" mode="para">
     <xsl:text>/</xsl:text>
     <xsl:apply-templates mode="para"/>
     <xsl:text>/</xsl:text>
+    <xsl:apply-templates select="." mode="post-spaces"/>
   </xsl:template>
 
   <xsl:template match="underline" mode="para">
     <xsl:text>_</xsl:text>
     <xsl:apply-templates mode="para"/>
     <xsl:text>_</xsl:text>
+    <xsl:apply-templates select="." mode="post-spaces"/>
   </xsl:template>
 
   <xsl:template match="code" mode="para">
     <xsl:text>~</xsl:text>
     <xsl:value-of select="value"/>
     <xsl:text>~</xsl:text>
+    <xsl:apply-templates select="." mode="post-spaces"/>
   </xsl:template>
 
   <xsl:template match="latex-fragment" mode="para">

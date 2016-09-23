@@ -1,5 +1,7 @@
 
 * Test1
 
-Some text with different highlighting: *bold*, /italic/, _underl_,
-~verbatim~, etc.
+Some text with different highlighting: *bold* or /italic/ or  _underlined_ or ~verbatim~ etc.
+
+
+Some text with different highlighting:  *bold*  or  /italic/  or    _underlined_  or  ~verbatim~  etc.
