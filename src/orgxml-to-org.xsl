@@ -39,8 +39,9 @@ Copyright © 2016 Johannes Willkomm
   </xsl:template>
 
   <xsl:template match="comment">
-    <xsl:text># </xsl:text>
-    <xsl:value-of select="value"/>
+    <xsl:apply-templates select="value" mode="print-lines">
+      <xsl:with-param name="prefix" select="'# '"/>
+    </xsl:apply-templates>
     <xsl:text>&#xa;</xsl:text>
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
