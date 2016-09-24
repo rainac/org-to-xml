@@ -263,7 +263,9 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="value" mode="print-lines">
       <xsl:with-param name="prefix">
         <xsl:apply-templates select="." mode="list-indent"/>
-        <xsl:text>    </xsl:text>
+        <xsl:if test="ancestor::item">
+          <xsl:text>    </xsl:text>
+        </xsl:if>
       </xsl:with-param>
     </xsl:apply-templates>
     <xsl:text>#+end_example&#xa;</xsl:text>
