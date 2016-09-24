@@ -216,12 +216,21 @@ Copyright © 2016 Johannes Willkomm
     <xsl:value-of select="."/>
   </xsl:template>
 
+  <xsl:template match="*" mode="list-indent">
+    <xsl:apply-templates select="ancestor::item[1]" mode="list-indent"/>
+    <xsl:call-template name="spaces">
+      <xsl:with-param name="num" select="string-length(ancestor::item[1]/@bullet)"/>
+    </xsl:call-template>
+  </xsl:template>
+
   <xsl:template match="src-block">
+    <xsl:apply-templates select="." mode="list-indent"/>
     <xsl:text>#+BEGIN_SRC</xsl:text>
     <xsl:apply-templates select="@language"/>
     <xsl:apply-templates select="@parameters"/>
     <xsl:text>&#xa;</xsl:text>
     <xsl:value-of select="value"/>
+    <xsl:apply-templates select="." mode="list-indent"/>
     <xsl:text>#+END_SRC&#xa;</xsl:text>
     <xsl:apply-templates select="." mode="post-blank"/>
     <xsl:if test="following-sibling::*/results">
@@ -325,11 +334,15 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
 
-  <xsl:template match="item">
+  <xsl:template match="item" mode="list-indent">
     <xsl:call-template name="spaces">
       <xsl:with-param name="num" select="@contents-begin - @begin - string-length(@bullet)
                                          - string-length(tag/item) - boolean(tag/item)*4"/>
     </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template match="item">
+    <xsl:apply-templates select="." mode="list-indent"/>
     <xsl:value-of select="@bullet"/>
     <xsl:apply-templates/>
     <xsl:apply-templates select="." mode="post-blank"/>
