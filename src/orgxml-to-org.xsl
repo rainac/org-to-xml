@@ -276,7 +276,7 @@ Copyright © 2016 Johannes Willkomm
     <xsl:for-each select="item">
       <xsl:sort select="position()" order="descending" data-type="number"/>
       <xsl:text>#+caption: </xsl:text>
-      <xsl:value-of select="."/>
+      <xsl:apply-templates mode="para"/>
       <xsl:text>&#xa;</xsl:text>
     </xsl:for-each>
   </xsl:template>
