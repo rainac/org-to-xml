@@ -269,10 +269,12 @@ Copyright © 2016 Johannes Willkomm
   </xsl:template>
 
   <xsl:template match="special-block">
+    <xsl:apply-templates select="." mode="list-indent"/>
     <xsl:text>#+BEGIN_</xsl:text>
     <xsl:value-of select="@type"/>
     <xsl:text>&#xa;</xsl:text>
     <xsl:apply-templates/>
+    <xsl:apply-templates select="." mode="list-indent"/>
     <xsl:text>#+END_</xsl:text>
     <xsl:value-of select="@type"/>
     <xsl:text>&#xa;</xsl:text>
