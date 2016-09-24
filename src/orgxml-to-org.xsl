@@ -228,6 +228,8 @@ Copyright © 2016 Johannes Willkomm
   </xsl:template>
 
   <xsl:template match="src-block">
+    <xsl:apply-templates select="@name"/>
+    <xsl:apply-templates select="caption"/>
     <xsl:apply-templates select="." mode="list-indent"/>
     <xsl:text>#+BEGIN_SRC</xsl:text>
     <xsl:apply-templates select="@language"/>
