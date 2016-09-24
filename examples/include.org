@@ -1,0 +1,7 @@
+* Test232
+
+Now we'll include something
+
+#+INCLUDE: test.org
+
+done
