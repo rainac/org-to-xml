@@ -1,0 +1,53 @@
+
+* Test
+
+A listing
+
+#+BEGIN_SRC sh :results output
+echo test
+#+END_SRC
+
+#+RESULTS:
+: test
+
+S
+
+#+BEGIN_SRC sh :results output
+yes | head -n 4
+#+END_SRC
+
+#+RESULTS:
+: y
+: y
+: y
+: y
+
+
+#+BEGIN_SRC sh :results output
+yes | head -n 10
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+y
+y
+y
+y
+y
+y
+y
+y
+y
+y
+#+end_example
+
+#+BEGIN_SRC sh
+yes | head -n 4 | nl
+#+END_SRC
+
+#+RESULTS:
+| 1 | y |
+| 2 | y |
+| 3 | y |
+| 4 | y |
+

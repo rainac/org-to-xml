@@ -1,0 +1,12 @@
+
+* Test
+
+A listing with output results
+
+#+BEGIN_SRC sh :results output
+echo test
+#+END_SRC
+
+#+RESULTS:
+: test
+
