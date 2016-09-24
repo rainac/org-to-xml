@@ -1,0 +1,34 @@
+* Test
+  - Item1
+    #+BEGIN_SRC sh
+echo test
+    #+END_SRC
+    + Item1a
+      #+BEGIN_SRC sh :results output :exports both
+echo test2
+      #+END_SRC
+
+      #+RESULTS:
+      : test2
+
+    + Item1b
+      #+BEGIN_SRC sh :results output :exports both
+yes | head -n 10 | nl -s " "
+      #+END_SRC
+
+      #+RESULTS:
+      #+begin_example
+           1 y
+           2 y
+           3 y
+           4 y
+           5 y
+           6 y
+           7 y
+           8 y
+           9 y
+          10 y
+#+end_example
+
+
+  - Item2
