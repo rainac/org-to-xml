@@ -385,6 +385,7 @@ Copyright © 2016 Johannes Willkomm
     <xsl:text>&lt;&lt;</xsl:text>
     <xsl:value-of select="value"/>
     <xsl:text>&gt;&gt;</xsl:text>
+    <xsl:apply-templates select="." mode="post-spaces"/>
   </xsl:template>
 
   <xsl:template match="timestamp" mode="para">
