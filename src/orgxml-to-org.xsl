@@ -45,6 +45,38 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
 
+  <xsl:template match="fixed-width">
+    <xsl:apply-templates select="value" mode="print-lines">
+      <xsl:with-param name="prefix" select="': '"/>
+    </xsl:apply-templates>
+    <xsl:apply-templates select="." mode="post-blank"/>
+  </xsl:template>
+
+  <xsl:template match="*" mode="print-lines" name="print-lines">
+    <xsl:param name="prefix" select="''"/>
+    <xsl:param name="sep" select="'&#xa;'"/>
+    <xsl:param name="str" select="."/>
+    <xsl:choose>
+      <xsl:when test="contains($str, '&#xa;')">
+        <xsl:value-of select="$prefix"/>
+        <xsl:value-of select="substring-before($str, '&#xa;')"/>
+        <xsl:value-of select="$sep"/>
+        <xsl:variable name="rem" select="substring-after($str, '&#xa;')"/>
+        <xsl:if test="string-length($rem)">
+          <xsl:call-template name="print-lines">
+            <xsl:with-param name="prefix" select="$prefix"/>
+            <xsl:with-param name="sep" select="$sep"/>
+            <xsl:with-param name="str" select="substring-after($str, '&#xa;')"/>
+          </xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$prefix"/>
+        <xsl:value-of select="$str"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
   <xsl:template match="drawer">
     <xsl:apply-templates select="." mode="pre-blank"/>
     <xsl:text>:</xsl:text>
