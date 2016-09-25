@@ -5,3 +5,19 @@ Now we'll include something
 #+INCLUDE: test.org
 
 done
+
+An included src-block
+
+#+name: l:test.sh
+#+caption: Test shell script
+#+INCLUDE: test.sh src sh
+
+** Subsection B
+
+#+INCLUDE: test.org :minlevel 2
+
+** Subsection C
+
+Test
+#+INCLUDE: abc.org
+done
