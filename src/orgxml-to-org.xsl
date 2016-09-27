@@ -93,9 +93,7 @@ Copyright © 2016 Johannes Willkomm
   </xsl:template>
 
   <xsl:template match="headline">
-    <xsl:for-each select="ancestor-or-self::headline">
-      <xsl:text>*</xsl:text>
-    </xsl:for-each>
+    <xsl:call-template name="stars"/>
     <xsl:apply-templates select="@todo-keyword"/>
     <xsl:apply-templates select="@priority"/>
     <xsl:apply-templates select="@raw-value"/>
@@ -448,6 +446,18 @@ Copyright © 2016 Johannes Willkomm
 
   <xsl:template match="title"/>
 
+  <xsl:template match="*" name="emit" mode="emit">
+    <xsl:param name="num" select="1"/>
+    <xsl:param name="str" select="' '"/>
+    <xsl:if test="$num > 0">
+      <xsl:value-of select="$str"/>
+      <xsl:call-template name="emit">
+        <xsl:with-param name="num" select="$num -1"/>
+        <xsl:with-param name="str" select="$str"/>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
   <xsl:template match="*" mode="pre-blank">
     <xsl:call-template name="blanks">
       <xsl:with-param name="num" select="@pre-blank"/>
@@ -456,32 +466,33 @@ Copyright © 2016 Johannes Willkomm
 
   <xsl:template match="*" name="blanks" mode="post-blank">
     <xsl:param name="num" select="@post-blank"/>
-    <xsl:if test="$num > 0">
-      <xsl:text>&#xa;</xsl:text>
-      <xsl:call-template name="blanks">
-        <xsl:with-param name="num" select="$num -1"/>
-      </xsl:call-template>
-    </xsl:if>
+    <xsl:call-template name="emit">
+      <xsl:with-param name="num" select="$num"/>
+      <xsl:with-param name="str" select="'&#xa;'"/>
+    </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="*" name="spaces" mode="post-spaces">
     <xsl:param name="num" select="@post-blank"/>
-    <xsl:if test="$num > 0">
-      <xsl:text> </xsl:text>
-      <xsl:call-template name="spaces">
-        <xsl:with-param name="num" select="$num -1"/>
-      </xsl:call-template>
-    </xsl:if>
+    <xsl:call-template name="emit">
+      <xsl:with-param name="num" select="$num"/>
+    </xsl:call-template>
   </xsl:template>
 
   <xsl:template match="*" name="dashes" mode="dashes">
     <xsl:param name="num" select="@end - @begin - 1"/>
-    <xsl:if test="$num > 0">
-      <xsl:text>-</xsl:text>
-      <xsl:call-template name="dashes">
-        <xsl:with-param name="num" select="$num -1"/>
-      </xsl:call-template>
-    </xsl:if>
+    <xsl:call-template name="emit">
+      <xsl:with-param name="num" select="$num"/>
+      <xsl:with-param name="str" select="'-'"/>
+    </xsl:call-template>
+  </xsl:template>
+
+  <xsl:template match="*" name="stars" mode="starts">
+    <xsl:param name="num" select="@level"/>
+    <xsl:call-template name="emit">
+      <xsl:with-param name="num" select="$num"/>
+      <xsl:with-param name="str" select="'*'"/>
+    </xsl:call-template>
   </xsl:template>
 
 </xsl:stylesheet>
