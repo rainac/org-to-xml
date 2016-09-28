@@ -12,8 +12,8 @@ fi
 TMP=${TMP:-/tmp}
 tempdir=${TMP}/org-to-xml-$$
 
-optstr="Difho:t:vV"
-TEMP=$(getopt -n org-to-xml -a -o $optstr -l list-includes,full,help,output:,tmp-dir:,verbose,version -- "$@")
+optstr="Difho:rt:vV"
+TEMP=$(getopt -n org-to-xml -a -o $optstr -l list-includes,full,help,output:,resolve,tmp-dir:,verbose,version -- "$@")
 
 if [ $? != 0 ] ; then echo "Error parsing options..." >&2 ; exit 1 ; fi
 
@@ -53,6 +53,10 @@ while true ; do
             out=$OPTARG
             shift 2
             ;;
+        (-r|--resolve)
+            resolve=1
+            shift
+            ;;
         (-t|--tmp-dir)
             tempdir=$OPTARG
             shift 2
@@ -62,8 +66,6 @@ while true ; do
             break
     esac
 done
-
-mkdir $tempdir
 
 if [[ "$show_help" = "1" ]]; then
     echo "org-to-xml.sh {option} input.org output.xml"
@@ -79,6 +81,8 @@ in=$1
 if [[ -z "$out" ]]; then
     out=$2
 fi
+
+mkdir $tempdir
 
 cleanup() {
     if [[ -z "$debug" ]]; then
@@ -106,7 +110,7 @@ else
     emout=$(readlink -f $out)
 fi
 
-if [[ "$full" = "1" ]]; then
+if [[ "$full" = "1" || "$resolve" = "1" ]]; then
     $SRCDIR/org-to-xml.sh -i -o $tempdir/include-list.txt $in
     res=$?
     if [ "$res" = "0" ]; then
@@ -121,15 +125,21 @@ if [[ "$full" = "1" ]]; then
             res=8
             break
         fi
-        echo "Processed include file $incfile ($incorg)" >&2
     done
-    if [ "$res" = "0" ]; then
-        $SRCDIR/org-to-xml.sh $in $tempdir/unres.xml
-        res=$?
-        if [ "$res" = "0" ]; then
-            echo "Processed main org file $in" >&2
-            xsltproc -o $emout --stringparam tempdir "$tempdir" $ORGTOXML_HOME/resolve-includes.xsl $tempdir/unres.xml
+    exec 5<$tempdir/include-list.txt
+    while read -r -u 5 file word2 word3; do
+        if [[ "$(basename $incfile .org).org" = "$incfile" ]]; then
+            incxml="$tempdir/$(basename $incfile .org).xml"
+            if [[ "$word2" = ":minlevel" ]]; then
+                $SRCDIR/orgxml-to-org.sh -m $word3 -o $tempdir/$incfile.$word3 $incxml
+            fi
         fi
+    done
+    if [[ "$full" = "1" ]]; then
+        awk -f $SRCDIR/insert-includes.awk -v O2XBASEDIR="$(dirname $in)" -v O2XTMPDIR="$tempdir" $in > $tempdir/$(basename $in)
+        $SRCDIR/org-to-xml.sh -o $emout $tempdir/$(basename $in)
+    else
+        awk -f $SRCDIR/insert-includes.awk -v O2XBASEDIR="$(dirname $in)" -v O2XTMPDIR="$tempdir" $in > $emout
     fi
     if [[ -z "$out" ]]; then
         cat $emout
