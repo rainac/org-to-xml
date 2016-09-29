@@ -8,7 +8,7 @@ test_relevel() {
     reforg=$EXAMPLES/sections-and-paras+1.org
     org-to-xml.sh $inorg > res.xml
     assertEquals "The script should exit successfully" "0" "$?"
-    orgxml-to-org.sh -m 1 res.xml > res.org
+    orgxml-to-org.sh -m 2 res.xml > res.org
     assertEquals "The script should exit successfully" "0" "$?"
     diff res.org $reforg
     assertEquals "The org with incremented levels should be equal to the reference" "0" "$?"
