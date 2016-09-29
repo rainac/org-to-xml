@@ -86,7 +86,10 @@ fi
 
 xpflags=""
 if [[ "$min_level" != "0" ]]; then
-    xpflags="$xpflags --stringparam min-level $min_level"
+    toplev=$(xsltproc $ORGTOXML_HOME/orgxml-toplevel.xsl $in)
+    levshift=$(( $min_level - $toplev ))
+    if [[ "$levshift" -lt 0 ]]; then levshift=0; fi
+    xpflags="$xpflags --stringparam level-shift $levshift"
 fi
 
 xsltproc -o $xpout $xpflags $ORGTOXML_HOME/orgxml-to-org.xsl $in

@@ -14,7 +14,7 @@ An included src-block
 
 ** Subsection B
 
-#+INCLUDE: test.org :minlevel 2
+#+INCLUDE: test.org :minlevel 3
 
 ** Subsection C
 

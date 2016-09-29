@@ -8,7 +8,7 @@ Copyright © 2016 Johannes Willkomm
 
   <xsl:output method="text"/>
 
-  <xsl:param name="min-level" select="0"/>
+  <xsl:param name="level-shift" select="0"/>
 
   <xsl:template match="text()"/>
 
@@ -496,7 +496,7 @@ Copyright © 2016 Johannes Willkomm
   </xsl:template>
 
   <xsl:template match="*" name="stars" mode="starts">
-    <xsl:param name="num" select="@level + $min-level"/>
+    <xsl:param name="num" select="@level + $level-shift"/>
     <xsl:call-template name="emit">
       <xsl:with-param name="num" select="$num"/>
       <xsl:with-param name="str" select="'*'"/>

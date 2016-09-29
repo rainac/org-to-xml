@@ -26,6 +26,7 @@ while true ; do
     case $OPT in
         (-D)
             debug=1
+            debopt=-D
             set -x
             shift
             ;;
@@ -131,7 +132,7 @@ if [[ "$full" = "1" || "$resolve" = "1" ]]; then
         if [[ "$(basename $incfile .org).org" = "$incfile" ]]; then
             incxml="$tempdir/$(basename $incfile .org).xml"
             if [[ "$word2" = ":minlevel" ]]; then
-                $SRCDIR/orgxml-to-org.sh -m $word3 -o $tempdir/$incfile.$word3 $incxml
+                $SRCDIR/orgxml-to-org.sh $debopt -m $word3 -o $tempdir/$incfile.$word3 $incxml
             fi
         fi
     done
