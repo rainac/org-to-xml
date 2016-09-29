@@ -98,6 +98,7 @@ if [[ "$list_includes" = "1" ]]; then
         out=-
     fi
     if [ "$res" = "0" ]; then
+        touch "$out"
         xsltproc -o "$out" $ORGTOXML_HOME/list-includes.xsl $tempdir/out.xml
         res=$?
     fi

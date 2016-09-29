@@ -25,6 +25,15 @@ test_include_lists2() {
     rm -rf list.txt cmp.txt
 }
 
+test_include_lists_outfile_created() {
+    rm -rf list.txt
+    org-to-xml.sh -o list.txt -i $EXAMPLES/abc.org
+    touch cmp.txt
+    diff list.txt cmp.txt
+    assertEquals "The include list output should be as expected" "0" "$?"
+    rm -rf list.txt cmp.txt
+}
+
 test_include_resolving() {
     org-to-xml.sh -o include-full.org -r $EXAMPLES/include.org
     diff include-full.org $EXAMPLES/include-resolved.org
