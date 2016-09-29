@@ -94,6 +94,15 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
 
+  <xsl:template match="/|*" mode="emit-post-blank"/>
+
+  <xsl:template match="headline" mode="emit-post-blank">
+    <xsl:apply-templates select="." mode="post-blank"/>
+    <xsl:if test="not(following-sibling::headline)">
+      <xsl:apply-templates select=".." mode="emit-post-blank"/>
+    </xsl:if>
+  </xsl:template>
+
   <xsl:template match="headline">
     <xsl:call-template name="stars"/>
     <xsl:apply-templates select="@todo-keyword"/>
@@ -104,10 +113,7 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="pre-blank"/>
     <xsl:apply-templates/>
     <xsl:if test="not(headline|section|paragraph)">
-      <xsl:apply-templates select="." mode="post-blank"/>
-      <xsl:if test="not(following-sibling::headline)">
-        <xsl:apply-templates select=".." mode="post-blank"/>
-      </xsl:if>
+      <xsl:apply-templates select="." mode="emit-post-blank"/>
     </xsl:if>
   </xsl:template>
 
