@@ -36,9 +36,7 @@ test_full() {
     org-to-xml.sh -o out-full.xml -f $EXAMPLES/include.org
     org-to-xml.sh -o out-cmp.xml $EXAMPLES/include-resolved.org
     sed -e 's/include-resolved/include/g' out-cmp.xml > out-cmp-CAT.xml
-    $TESTDIR/../src/emacs-xml-indent.sh out-full.xml out-full-i.xml
-    $TESTDIR/../src/emacs-xml-indent.sh out-cmp-CAT.xml out-cmp-i.xml
-    diff out-full-i.xml out-cmp-i.xml
+    diff out-full.xml out-cmp-CAT.xml
     assertEquals "The resolved XML output should be as expected" "0" "$?"
     rm -rf out-full.xml out-cmp.xml out-cmp-CAT.xml out-full-i.xml out-cmp-i.xml
 }
@@ -54,9 +52,7 @@ test_full_minlevel() {
     org-to-xml.sh -o out-full.xml -f $EXAMPLES/include-minlevel.org
     org-to-xml.sh -o out-cmp.xml $EXAMPLES/include-minlevel-resolved.org
     sed -e 's/include-minlevel-resolved/include-minlevel/g' out-cmp.xml > out-cmp-CAT.xml
-    $TESTDIR/../src/emacs-xml-indent.sh out-full.xml out-full-i.xml
-    $TESTDIR/../src/emacs-xml-indent.sh out-cmp-CAT.xml out-cmp-i.xml
-    diff out-full-i.xml out-cmp-i.xml
+    diff out-full.xml out-cmp-CAT.xml
     assertEquals "The resolved XML output should be as expected" "0" "$?"
     rm -rf out-full.xml out-cmp.xml out-cmp-CAT.xml out-full-i.xml out-cmp-i.xml
 }
