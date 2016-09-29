@@ -1,0 +1,8 @@
+#+TITLE: main doc
+
+* Chapter
+
+in this chapter
+
+#+INCLUDE: sec1.org :minlevel 2
+
