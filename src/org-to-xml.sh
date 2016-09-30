@@ -115,25 +115,22 @@ fi
 if [[ "$full" = "1" || "$resolve" = "1" ]]; then
     $SRCDIR/org-to-xml.sh -i -o $tempdir/include-list.txt $in
     res=$?
-    if [ "$res" = "0" ]; then
-        awk '{ print $1 }'  $tempdir/include-list.txt | grep -E ".*\.org$" | sort | uniq > $tempdir/include-org-file-list.txt
-    fi
-    for incfile in $(cat $tempdir/include-org-file-list.txt); do
-        incorg=$(readlink -f $(dirname $in))/$incfile
-        $SRCDIR/org-to-xml.sh -o $tempdir/$(basename $incfile .org).xml $incorg
-        resk=$?
-        if [ "$resk" != "0" ]; then
-            echo "$0: Failed to process include file $incfile ($incorg)" >&2
-            res=8
-            break
-        fi
-    done
     exec 5<$tempdir/include-list.txt
-    while read -r -u 5 file word2 word3; do
+    while read -r -u 5 incfile word2 word3; do
         if [[ "$(basename $incfile .org).org" = "$incfile" ]]; then
+            incorg=$(readlink -f $(dirname $in))/$incfile
             incxml="$tempdir/$(basename $incfile .org).xml"
+            env_MINLEVEL=$O2XMINLEVEL
             if [[ "$word2" = ":minlevel" ]]; then
-                $SRCDIR/orgxml-to-org.sh $debopt -m $word3 -o $tempdir/$incfile.$word3 $incxml
+                export O2XMINLEVEL=$(( $word3 - 1 ))
+            fi
+            $SRCDIR/org-to-xml.sh $debopt -f -o $incxml $incorg
+            if [[ "$word2" = ":minlevel" ]]; then
+                min_level=$word3
+                if [[ -n "$env_MINLEVEL" ]]; then
+                    min_level=$(( $min_level - $env_MINLEVEL ))
+                fi
+                $SRCDIR/orgxml-to-org.sh $debopt -m $min_level -o $tempdir/$incfile.$word3 $incxml
             fi
         fi
     done

@@ -66,5 +66,28 @@ test_full_minlevel() {
     rm -rf out-full.xml out-cmp.xml out-cmp-CAT.xml out-full-i.xml out-cmp-i.xml
 }
 
+test_include_recursive() {
+    org-to-xml.sh -o include-full.org -r $EXAMPLES/main.org
+    diff include-full.org $EXAMPLES/main-resolved.org
+    assertEquals "The resolved org file output should be as expected" "0" "$?"
+    rm -rf include-full.org
+}
+
+test_full_recursive() {
+    org-to-xml.sh -o out-full.xml -f $EXAMPLES/main.org
+    org-to-xml.sh -o out-cmp.xml $EXAMPLES/main-resolved.org
+    sed -e 's/main-resolved/main/g' out-cmp.xml > out-cmp-CAT.xml
+    diff out-full.xml out-cmp-CAT.xml
+    assertEquals "The resolved XML output should be as expected" "0" "$?"
+    rm -rf out-full.xml out-cmp.xml out-cmp-CAT.xml out-full-i.xml out-cmp-i.xml
+}
+
+test_include_noinclude() {
+    org-to-xml.sh -o include-full.org -r $EXAMPLES/abc.org
+    diff include-full.org $EXAMPLES/abc.org
+    assertEquals "The resolved org file output should be as expected" "0" "$?"
+    rm -rf include-full.org
+}
+
 . shunit2
 
