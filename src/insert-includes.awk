@@ -1,4 +1,4 @@
-BEGIN { skip=0 }
+BEGIN { IGNORECASE=1; skip=0 }
 
 /#\+INCLUDE:/ {
     if (index($2, ".org") > 0) {
