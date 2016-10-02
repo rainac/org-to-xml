@@ -1,7 +1,7 @@
 #! /bin/bash
 
 res=0
-SRCDIR=$(dirname $BASH_SOURCE)
+SRCDIR=$(dirname $(readlink -f $BASH_SOURCE))
 ORGTOXML_HOME=${ORGTOXML_HOME:-$SRCDIR}
 
 if [[ "$ORGTOXML_DEBUG" = "1" ]]; then

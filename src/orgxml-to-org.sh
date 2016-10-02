@@ -1,6 +1,6 @@
 #! /bin/bash
 
-SRCDIR=$(dirname $BASH_SOURCE)
+SRCDIR=$(dirname $(readlink -f $BASH_SOURCE))
 ORGTOXML_HOME=${ORGTOXML_HOME:-$SRCDIR}
 
 TMP=${TMP:-/tmp}
