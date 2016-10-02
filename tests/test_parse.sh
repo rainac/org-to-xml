@@ -17,6 +17,18 @@ test_outfile() {
     check_well_formed res.xml
 }
 
+test_outfile_option() {
+    rm -f res.xml
+    org-to-xml.sh -o res.xml $EXAMPLES/test.org
+    check_well_formed res.xml
+}
+
+test_outfile_option2() {
+    rm -f res.xml
+    org-to-xml.sh $EXAMPLES/test.org -o res.xml
+    check_well_formed res.xml
+}
+
 test_linked() {
     rm -f res.xml
     mkdir subdir
