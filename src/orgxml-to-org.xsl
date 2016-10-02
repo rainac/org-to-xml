@@ -436,7 +436,7 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
 
-  <xsl:template match="deadline"/>
+  <xsl:template match="deadline|closed"/>
 
   <xsl:template match="deadline" mode="planning">
     <xsl:text>  DEADLINE: </xsl:text>
@@ -445,9 +445,22 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
 
+  <xsl:template match="closed" mode="planning">
+    <xsl:text>  CLOSED: </xsl:text>
+    <xsl:apply-templates mode="para"/>
+    <xsl:text>&#xa;</xsl:text>
+    <xsl:apply-templates select="." mode="post-blank"/>
+  </xsl:template>
+
+  <xsl:template match="@duration">
+    <xsl:text>=>  </xsl:text>
+    <xsl:value-of select="."/>
+  </xsl:template>
+
   <xsl:template match="clock">
     <xsl:text>  CLOCK: </xsl:text>
     <xsl:apply-templates mode="para"/>
+    <xsl:apply-templates select="@duration"/>
     <xsl:text>&#xa;</xsl:text>
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
