@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<org-data>
+  <section begin="1" end="38" contents-begin="1" contents-end="38" post-blank="0">
+    <keyword key="TITLE" begin="1" end="21" post-blank="0" post-affiliated="1">
+      <value>Some title</value>
+    </keyword>
+    <keyword key="KEYWORD" begin="21" end="38" post-blank="0" post-affiliated="21">
+      <value>value</value>
+    </keyword>
+  </section>
+  <headline raw-value="First heading" begin="38" end="145" pre-blank="0" hiddenp="outline" contents-begin="54" contents-end="145" level="1" post-blank="0" CATEGORY="example">
+    <title>
+      <item>First heading</item>
+    </title>
+    <section begin="54" end="60" contents-begin="54" contents-end="60" post-blank="0">
+      <paragraph begin="54" end="60" contents-begin="54" contents-end="60" post-blank="0" post-affiliated="54">First
+      </paragraph>
+    </section>
+    <headline raw-value="Second heading" begin="60" end="145" pre-blank="0" hiddenp="outline" contents-begin="138" contents-end="145" level="2" post-blank="0">
+      <tags>
+        <item>tag1</item>
+        <item>tag2</item>
+      </tags>
+      <title>
+        <item>Second heading</item>
+      </title>
+      <section begin="138" end="145" contents-begin="138" contents-end="145" post-blank="0">
+        <paragraph begin="138" end="145" contents-begin="138" contents-end="145" post-blank="0" post-affiliated="138">Second
+        </paragraph>
+      </section>
+    </headline>
+  </headline>
+</org-data>
