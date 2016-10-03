@@ -90,7 +90,7 @@ test_include_noinclude() {
 }
 
 test_include_case() {
-    org-to-xml.sh -o include-full.org -r $EXAMPLES/include-case.org
+    org-to-xml.sh -o include-full.org -r $EXAMPLES/fail/include-case.org
     diff include-full.org $EXAMPLES/abc.org
     assertEquals "The resolved org file output should be as expected" "0" "$?"
     rm -rf include-full.org
