@@ -426,6 +426,47 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-spaces"/>
   </xsl:template>
 
+  <xsl:template match="timestamp" mode="start">
+    <xsl:number format="0001" value="@year-start"/>
+    <xsl:text>-</xsl:text>
+    <xsl:number format="01" value="@month-start"/>
+    <xsl:text>-</xsl:text>
+    <xsl:number format="01" value="@day-start"/>
+    <xsl:text> </xsl:text>
+    <xsl:number format="01" value="@hour-start"/>
+    <xsl:text>:</xsl:text>
+    <xsl:number format="01" value="@minute-start"/>
+  </xsl:template>
+
+  <xsl:template match="timestamp" mode="end">
+    <xsl:number format="0001" value="@year-end"/>
+    <xsl:text>-</xsl:text>
+    <xsl:number format="01" value="@month-end"/>
+    <xsl:text>-</xsl:text>
+    <xsl:number format="01" value="@day-end"/>
+    <xsl:text> </xsl:text>
+    <xsl:number format="01" value="@hour-end"/>
+    <xsl:text>:</xsl:text>
+    <xsl:number format="01" value="@minute-end"/>
+  </xsl:template>
+
+  <xsl:template match="timestamp[(@type = 'inactive' or @type = 'active') and @hour-start]" mode="gen">
+    <xsl:text>[</xsl:text>
+    <xsl:apply-templates select="." mode="start"/>
+    <xsl:text>]</xsl:text>
+    <xsl:apply-templates select="." mode="post-spaces"/>
+  </xsl:template>
+
+  <xsl:template match="timestamp[(@type = 'inactive-range') and @hour-start]" mode="gen">
+    <xsl:text>[</xsl:text>
+    <xsl:apply-templates select="." mode="start"/>
+    <xsl:text>]</xsl:text>
+    <xsl:text>--[</xsl:text>
+    <xsl:apply-templates select="." mode="end"/>
+    <xsl:text>]</xsl:text>
+    <xsl:apply-templates select="." mode="post-spaces"/>
+  </xsl:template>
+
   <xsl:template match="timestamp" mode="para">
     <xsl:value-of select="@raw-value"/>
     <xsl:apply-templates select="." mode="post-spaces"/>
