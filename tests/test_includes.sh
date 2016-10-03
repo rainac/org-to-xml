@@ -89,5 +89,12 @@ test_include_noinclude() {
     rm -rf include-full.org
 }
 
+test_include_case() {
+    org-to-xml.sh -o include-full.org -r $EXAMPLES/include-case.org
+    diff include-full.org $EXAMPLES/abc.org
+    assertEquals "The resolved org file output should be as expected" "0" "$?"
+    rm -rf include-full.org
+}
+
 . shunit2
 
