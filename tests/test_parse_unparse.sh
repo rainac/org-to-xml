@@ -11,7 +11,7 @@ test_indiv() {
 
 test_gen_all() {
     # header
-    cat > $TESTDIR/test_parse_unparse_all.sh <<EOF
+    cat > $TESTDIR/test_parse_unparse_all.gsh <<EOF
 #! /bin/bash
 
 TESTDIR=$(dirname $BASH_SOURCE)
@@ -28,7 +28,7 @@ EOF
     for torg in $exlist; do
         relname=${torg##$EXAMPLES/}
 
-    cat >> $TESTDIR/test_parse_unparse_all.sh <<EOF
+    cat >> $TESTDIR/test_parse_unparse_all.gsh <<EOF
 
 test_file_$k() {
     echo testing input file: $relname
@@ -41,7 +41,7 @@ EOF
     # failing tests
     k=1
     for torg in $EXAMPLES/fail/*.org; do
-    cat >> $TESTDIR/test_parse_unparse_all.sh <<EOF
+    cat >> $TESTDIR/test_parse_unparse_all.gsh <<EOF
 
 test_file_fail_$k() {
     echo testing input file: $(basename $torg)
@@ -52,19 +52,29 @@ EOF
     done
 
     # footer
-    cat >> $TESTDIR/test_parse_unparse_all.sh <<EOF
+    cleanup=cleanup
+    cat >> $TESTDIR/test_parse_unparse_all.gsh <<EOF
+
+test_$cleanup() {
+    cleanup
+}
 
 . shunit2
 
 EOF
 
-    chmod a+x $TESTDIR/test_parse_unparse_all.sh
+    chmod a+x $TESTDIR/test_parse_unparse_all.gsh
 
 }
 
 test_run_all() {
-    $TESTDIR/test_parse_unparse_all.sh
+    $TESTDIR/test_parse_unparse_all.gsh
     assertEquals "The sub test suite should pass OK" "0" "$?"
+}
+
+test_cleanup() {
+    cleanup
+    rm $TESTDIR/test_parse_unparse_all.gsh
 }
 
 . shunit2

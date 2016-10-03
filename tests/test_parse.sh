@@ -39,5 +39,9 @@ test_linked() {
     rm -rf subdir
 }
 
+test_cleanup() {
+    cleanup
+}
+
 . shunit2
 

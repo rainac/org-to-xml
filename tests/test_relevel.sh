@@ -14,4 +14,8 @@ test_relevel() {
     assertEquals "The org with incremented levels should be equal to the reference" "0" "$?"
 }
 
+test_cleanup() {
+    cleanup
+}
+
 . shunit2

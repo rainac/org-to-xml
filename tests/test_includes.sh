@@ -96,5 +96,9 @@ test_include_case() {
     rm -rf include-full.org
 }
 
+test_cleanup() {
+    cleanup
+}
+
 . shunit2
 
