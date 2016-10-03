@@ -147,7 +147,7 @@ if [[ "$full" = "1" || "$resolve" = "1" ]]; then
     exit $res
 fi
 
-emacs --batch -l $ORGTOXML_HOME/org-to-xml.el --file $in --eval "(org-to-xml-file \"$emout\")" 2> $tempdir/err
+emacs $EMACSFLAGS -Q --batch -l $ORGTOXML_HOME/org-to-xml.el --file $in --eval "(org-to-xml-file \"$emout\")" 2> $tempdir/err
 res=$?
 
 if [[ "$res" != "0" ]]; then
