@@ -167,6 +167,13 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-spaces"/>
   </xsl:template>
 
+  <xsl:template match="verbatim" mode="para">
+    <xsl:text>=</xsl:text>
+    <xsl:apply-templates mode="para"/>
+    <xsl:text>=</xsl:text>
+    <xsl:apply-templates select="." mode="post-spaces"/>
+  </xsl:template>
+
   <xsl:template match="code" mode="para">
     <xsl:text>~</xsl:text>
     <xsl:value-of select="value"/>
