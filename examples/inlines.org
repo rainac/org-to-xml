@@ -1,0 +1,8 @@
+
+* Test
+
+In text there may occur inline blocks like latex formulas: $1+1=2$ or
+source code snippets: ~code~.
+
+In text there may occur inline blocks like latex formulas:  $1+1=2$  or
+source code snippets:  ~code~ .
