@@ -219,6 +219,18 @@ Copyright © 2016 Johannes Willkomm
     <xsl:text>&#xa;</xsl:text>
   </xsl:template>
 
+  <xsl:template match="attr_latex" mode="para">
+    <xsl:text>#+ATTR_LATEX: </xsl:text>
+    <xsl:apply-templates mode="para"/>
+    <xsl:text>&#xa;</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="attr_html" mode="para">
+    <xsl:text>#+ATTR_HTML: </xsl:text>
+    <xsl:apply-templates mode="para"/>
+    <xsl:text>&#xa;</xsl:text>
+  </xsl:template>
+
   <xsl:template match="@priority[.='65']">
     <xsl:text> [#A]</xsl:text>
   </xsl:template>
