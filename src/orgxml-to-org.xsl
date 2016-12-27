@@ -138,6 +138,7 @@ Copyright © 2016 Johannes Willkomm
   </xsl:template>
 
   <xsl:template match="paragraph">
+    <xsl:apply-templates select="@name"/>
     <xsl:apply-templates mode="para"/>
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
@@ -304,6 +305,10 @@ Copyright © 2016 Johannes Willkomm
     <xsl:text>&#xa;</xsl:text>
   </xsl:template>
 
+  <xsl:template match="caption" mode="para">
+    <xsl:apply-templates select="."/>
+  </xsl:template>
+
   <xsl:template match="caption">
     <xsl:for-each select="item">
       <xsl:sort select="position()" order="descending" data-type="number"/>
@@ -393,6 +398,13 @@ Copyright © 2016 Johannes Willkomm
   </xsl:template>
 
   <xsl:template match="@type[. = 'fuzzy']" mode="link"/>
+
+  <xsl:template match="@type[. = 'file']" mode="link">
+    <xsl:if test="starts-with(../@raw-link, .)">
+      <xsl:value-of select="."/>
+      <xsl:text>:</xsl:text>
+    </xsl:if>
+  </xsl:template>
 
   <xsl:template match="@search-option" mode="link">
     <xsl:text>::</xsl:text>
