@@ -138,6 +138,7 @@ Copyright © 2016 Johannes Willkomm
   </xsl:template>
 
   <xsl:template match="paragraph">
+    <xsl:apply-templates select="@name"/>
     <xsl:apply-templates mode="para"/>
     <xsl:apply-templates select="." mode="post-blank"/>
   </xsl:template>
@@ -164,6 +165,13 @@ Copyright © 2016 Johannes Willkomm
     <xsl:text>_</xsl:text>
     <xsl:apply-templates mode="para"/>
     <xsl:text>_</xsl:text>
+    <xsl:apply-templates select="." mode="post-spaces"/>
+  </xsl:template>
+
+  <xsl:template match="verbatim" mode="para">
+    <xsl:text>=</xsl:text>
+    <xsl:apply-templates mode="para"/>
+    <xsl:text>=</xsl:text>
     <xsl:apply-templates select="." mode="post-spaces"/>
   </xsl:template>
 
@@ -208,6 +216,18 @@ Copyright © 2016 Johannes Willkomm
     <xsl:apply-templates select="." mode="post-spaces">
       <xsl:with-param name="num" select="@end - @begin - 3"/>
     </xsl:apply-templates>
+    <xsl:text>&#xa;</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="attr_latex" mode="para">
+    <xsl:text>#+ATTR_LATEX: </xsl:text>
+    <xsl:apply-templates mode="para"/>
+    <xsl:text>&#xa;</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="attr_html" mode="para">
+    <xsl:text>#+ATTR_HTML: </xsl:text>
+    <xsl:apply-templates mode="para"/>
     <xsl:text>&#xa;</xsl:text>
   </xsl:template>
 
@@ -295,6 +315,10 @@ Copyright © 2016 Johannes Willkomm
     <xsl:text>#+name: </xsl:text>
     <xsl:value-of select="."/>
     <xsl:text>&#xa;</xsl:text>
+  </xsl:template>
+
+  <xsl:template match="caption" mode="para">
+    <xsl:apply-templates select="."/>
   </xsl:template>
 
   <xsl:template match="caption">
@@ -394,6 +418,13 @@ Copyright © 2016 Johannes Willkomm
   </xsl:template>
 
   <xsl:template match="@type[. = 'fuzzy']" mode="link"/>
+
+  <xsl:template match="@type[. = 'file']" mode="link">
+    <xsl:if test="starts-with(../@raw-link, .)">
+      <xsl:value-of select="."/>
+      <xsl:text>:</xsl:text>
+    </xsl:if>
+  </xsl:template>
 
   <xsl:template match="@search-option" mode="link">
     <xsl:text>::</xsl:text>

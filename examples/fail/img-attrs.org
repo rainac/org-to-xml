@@ -1,0 +1,10 @@
+* Test
+
+Some text
+
+#+ATTR_LATEX:  :width 12cm
+#+name: i:img2
+#+caption: Another image
+[[file:image2.png]]
+
+More text: see Figure [[i:img2]].

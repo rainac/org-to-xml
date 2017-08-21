@@ -1,0 +1,17 @@
+* Test
+
+Some text
+
+#+name: i:img
+#+caption: An image
+[[./image.png]]
+
+More text: see Figure [[i:img]].
+
+#+name: i:img2
+#+ATTR_LATEX: :width 12cm
+#+ATTR_HTML: :width 120
+#+caption: Another image
+[[file:image2.png]]
+
+More text: see Figure [[i:img2]].
