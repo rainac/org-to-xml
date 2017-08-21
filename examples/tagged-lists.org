@@ -1,0 +1,16 @@
+* Section
+
+Test
+
+  - A :: item1
+    + AR:A :: 11
+    + AS :: 12
+    + AT :: 13
+  - B :: item2
+    * BR :: 11
+    * BS:B :: 12
+    * BT :: 13
+  - C :: item3
+
+Text
+

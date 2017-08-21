@@ -1,0 +1,4 @@
+* TODO ToDo-List
+  a timestamp <2016-09-18 So> with a date
+
+  a timerange <2016-11-17 Do>--<2016-12-27 Di> with dates

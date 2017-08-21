@@ -1,0 +1,150 @@
+#+title: Org-To-XML: Transform org files to XML and back
+
+* org-to-xml
+
+Export Org-mode document structure to XML and back, reproducing the
+org file identically
+
+** Installation
+
+Currently, there is no real installation procedure. Just create
+symlinks to the two scripts ~org-to-xml.sh~ and ~orgxml-to-org.sh~, or
+add the ~src~ directory to the PATH.
+
+** Usage
+
+Within Emacs: Load ~src/org-to-xml.el~ and then use the function
+~org-to-xml~, which will save the current Org-mode buffer to
+/filename/~.xml~, where /filename/ is the name of the buffer.
+
+As a command line programm: You can also invoke Emacs in batch mode
+from a shell script, this is done by the ~org-to-xml.sh~ script
+(cf. [[org-to-xml.sh usage]]).
+
+The XML output format can be converted back to the org syntax with an
+XSL stylesheet. The original org file is reproduced identically. There
+also is a shell script for that inverse transformation, see
+~src/orgxml-to-org.sh~.
+
+Taken together, the two scripts provide a facility to perform
+arbitrary transformations of org files via the XML representation,
+using XSL, for example.
+
+As a special feature, ~org-to-xml.sh~ can resolve includes of other
+org files.
+
+*** org-to-xml.sh usage
+
+The program ~org-to-xml.sh~ transforms org files to XML and can be
+used in one the following ways
+
+    - ~org-to-xml.sh infile.org~ will transform the org file
+      ~infile.org~ to XML and print it to the standard output
+    - ~org-to-xml.sh infile.org outfile.xml~ will transform the org file
+      ~infile.org~ to XML and write it to ~outfile.xml~
+    - ~org-to-xml.sh infile.org -o outfile.xml~ the same as above
+
+The XML dialect produced is called /org-data XML/ after the name of
+the document element. A special feature is the possibility to resolve
+include keywords and insert included org file into the output. This
+can be done with the options ~r~ or ~-f~. Option ~-f~ will insert the
+included org files in the output XML, while option ~-r~ will output an
+org file.
+
+~org-to-xml.sh~ options are listed in the following table. Usually
+options have both a short and a long form
+| Short option | Long option       | Description                                       |
+|--------------+-------------------+---------------------------------------------------|
+| ~-o name~    | ~--output name~   | Write output to file ~name~                       |
+|--------------+-------------------+---------------------------------------------------|
+| ~-i~         | ~--list-includes~ | List include keywords                             |
+| ~-r~         | ~--resolve~       | Resolve org includes and output resolved org file |
+| ~-f~         | ~--full~          | Resolve org includes and output XML               |
+|--------------+-------------------+---------------------------------------------------|
+| ~-D~         |                   | Enable debug mode                                 |
+| ~-t dir~     | ~--tmp-dir dir~   | Set temporary directory to ~dir~                  |
+|--------------+-------------------+---------------------------------------------------|
+| ~-h~         | ~--help~          | Show help and exit                                |
+| ~-v~         | ~--version~       | Show version and exit                             |
+
+
+*** orgxml-to-org.sh usage
+
+The program ~orgxml-to-org.sh~ transforms /org-data XML/ back to org
+files and can be used in the same manner as the ~org-to-xml.sh~
+script, e.g.  ~org-to-xml.sh infile.xml outfile.org~ will transform
+the org-data XML ~infile.xml~ to an org file XML written to
+~outfile.org~.
+
+The original org file is usually reproduced without loss, the result
+is identical to the input that produced the XML. The headlines in the
+output can be modified with option ~m~ or ~--min-level~, which works
+similar to the attribute ~:minlevel~ in org file includes.
+
+~orgxml-to-org.sh~ options are listed in the following table. Usually
+options have both a short and a long form
+| Short option | Long option         | Description                                  |
+|--------------+---------------------+----------------------------------------------|
+| ~-o name~    | ~--output name~     | Write output to file ~name~                  |
+|--------------+---------------------+----------------------------------------------|
+| ~-m level~   | ~--min-level level~ | Increase headline levels to at least ~level~ |
+|--------------+---------------------+----------------------------------------------|
+| ~-D~         |                     | Enable debug mode                            |
+| ~-t dir~     | ~--tmp-dir dir~     | Set temporary directory to ~dir~             |
+|--------------+---------------------+----------------------------------------------|
+| ~-h~         | ~--help~            | Show help and exit                           |
+| ~-v~         | ~--version~         | Show version and exit                        |
+
+** The org XML format
+
+The XML format which is produced by *org-to-xml* can represent almost
+all structural features of org files. In particular headlines,
+paragraphs, lists, keywords, source, example, and special blocks,
+links, targets, timestamps and several more.
+
+The XML format is obtained by a straight-forward recursive traversal
+of the internal org structure, printing the items as XML elements and
+attributes. The element and attribute names are the same as those of
+the internal org structure items. The only exception are items of list
+type, which are represented in XML with ~list~ and ~item~ elements.
+
+The root element is called ~org-data~. It contains one or more nested
+~headline~ elements. These may contain in addition a ~section~ element
+which contains block level textual items such as ~paragraph~,
+~keyword~, ~table~, ~latex-environment~, ~example-block~,
+~special-block~, or ~src-block~ elements. The ~paragraph~ elements
+contain the actual text, including inline items such as ~bold~,
+~italic~, ~code~, ~latex-fragment~ or ~subscript~ elements.
+
+The ~headline~ elements may have the attributes ~todo-keyword~ and
+~priority~ which are used with TODO item headlines.
+
+The ~table~, ~src-block~ and ~keyword~ elements may also have
+~caption~ elements and ~name~ attributes, which are used with floating
+envirenments.
+
+*** Example
+
+Consider the following example org file [[./examples/example.org][examples/example.org]]:
+#+include: examples/example.org example
+which is translated to the following XML, in file
+[[./examples/example.xml][examples/example.xml]], shown here with added indentation for better
+readability:
+#+include: examples/example.xml src xml
+
+** History
+
+*org-to-xml* is originally, and still for the most part, based on a
+piece of Emacs Lisp code posted as an answer by user harpo to the
+question on stackoverflow.com: [[http://stackoverflow.com/questions/14323854/emacs-org-mode-and-html-publishing-how-to-change-structure-of-generated-html][emacs-org mode and html publishing: how
+to change structure of generated HTML]]
+
+Initially I just changed a few things which didn't work in my emacs
+(any more) and added some wrapper scripts. Over time I have also
+expanded the functionality somewhat, adding more elements to the XML
+output. In particular, I added an XSL stylesheet to reproduce the
+original org file from the XML.
+
+Also, some tests were added to check that Org-mode markup features are
+recognized, represented in XML and that they can be reproduced
+identically.

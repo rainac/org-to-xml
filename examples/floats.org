@@ -1,0 +1,19 @@
+* Test
+
+Some text
+
+#+name: i:img
+#+caption: The image
+#+IMAGE: img.png
+
+#+name: t:table
+#+caption: The table
+| A | B | C |
+|---+---+---|
+| 1 | 2 | 3 |
+
+#+name: l:listing
+#+caption: A Listing
+#+BEGIN_SRC sh
+echo test
+#+END_SRC

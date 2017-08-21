@@ -1,0 +1,20 @@
+* Test
+  - Item1
+    #+BEGIN_SRC sh
+echo test
+    #+END_SRC
+    + Item1d
+      #+BEGIN_ASCII
+TTT      
+      #+END_ASCII
+
+    + Item1e
+      #+BEGIN_LATEX
+ Latex      
+      #+END_LATEX
+
+    + Item1f
+      #+BEGIN_FOO
+foo block      
+      #+END_FOO
+  - Item2

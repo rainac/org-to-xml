@@ -1,0 +1,11 @@
+* First heading
+
+** Second heading A
+
+See also [[Second%20heading%20B][here]] for..
+
+** Second heading B
+
+As seen in [[Second%20heading%20A][there]] it is
+
+

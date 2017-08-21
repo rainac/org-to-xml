@@ -1,0 +1,11 @@
+* First heading
+<<s:first>>
+
+** Second heading A
+<<s:seca>>
+See also [[s:secb]] for.
+** Second heading B
+<<s:secb>> <<s:alttarget>>
+
+As seen in [[s:seca][Second heading A]] it is.
+

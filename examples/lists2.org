@@ -1,0 +1,11 @@
+* Section
+
+Testing non-standard list indents here
+
+   - item1
+   - item2
+
+Text
+
+ + l2 item1
+ + l2 item2

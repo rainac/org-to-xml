@@ -1,0 +1,77 @@
+* Test232
+
+Now we'll include something
+
+
+#+TITLE: Some title
+
+#+KEYWORD: value
+
+#+DRAWERS: mydrawer
+
+:mydrawer:
+text
+in
+drawer
+:end:
+
+
+* First heading
+
+** Second heading A
+
+** Second heading B
+
+
+* First heading
+
+** Second heading A
+
+** Second heading B
+
+
+
+done
+
+An included src-block
+
+#+name: l:test.sh
+#+caption: Test shell script
+#+INCLUDE: test.sh src sh
+
+** Subsection B
+
+
+#+TITLE: Some title
+
+#+KEYWORD: value
+
+#+DRAWERS: mydrawer
+
+:mydrawer:
+text
+in
+drawer
+:end:
+
+
+*** First heading
+
+**** Second heading A
+
+**** Second heading B
+
+
+*** First heading
+
+**** Second heading A
+
+**** Second heading B
+
+
+
+** Subsection C
+
+Test
+abc
+done
