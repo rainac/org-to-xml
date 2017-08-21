@@ -375,7 +375,15 @@ Copyright © 2016 Johannes Willkomm
 
   <xsl:template match="tag">
     <xsl:value-of select="item"/>
-    <xsl:text> :: </xsl:text>
+    <xsl:text> ::</xsl:text>
+    <xsl:choose>
+      <xsl:when test="not(../paragraph)">
+        <xsl:text>&#xa;</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text> </xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="structure"/>
