@@ -117,6 +117,8 @@ attributes."
 
 (defun org-file-to-xml (orgfile xmlfile)
   "Serialize ORGFILE file as XML to XMLFILE."
+  (when (file-locked-p xmlfile)
+      (throw 'org-file-to-xml-file-locked "org-to-xml: output file is locked"))
   (save-excursion
     (find-file orgfile)
     (let ((org-doc (org-element-parse-buffer)))
