@@ -78,6 +78,8 @@ if [[ "$show_version" = "1" ]]; then
     exit 0
 fi
 
+TMP=${TMP:-/tmp}
+
 in=$1
 if [[ -z "$out" ]]; then
     out=$2
